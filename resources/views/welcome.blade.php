@@ -1,4 +1,173 @@
-<!DOCTYPE html>
+
+<div style='background-color:red;text-align:center;'> <br/><br/>This license is going to expire on <strong>2023-08-30</strong>, Please contact service provider to continue using the software.</div><!DOCTYPE HTML>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Fruit Market" />
+        <meta name="description" content="Fruit Market App- Online Shopping For Fruits and Vegetables."/>
+		<meta name="keywords" content="Fruit App, Fruit Market"/>
+		<meta name="generator" content=""/>
+		<meta name="Resource-Type" content="document"/>
+		<meta name="Distribution" content="global"/>
+		<meta name="Robots" content="index, follow"/>
+		<meta name="Revisit-After" content="21 days"/>
+		<meta name="Rating" content="general"/>
+      
+        
+	<title></title>
+    <link href="themes/default/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="themes/default/css/bootstrap-theme.css" rel="stylesheet"  />
+    <link href="themes/default/css/custom.css" rel="stylesheet" />
+	<link href="themes/default/css/font-awesome.css" rel="stylesheet" />
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,300' rel="stylesheet"  type="text/css"/>
+
+    
+</head>
+
+<body>
+        <div id="top"></div>
+		<!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+			</div>
+			<!-- /.container -->
+		</nav>
+        
+		<!-- Home slider -->
+        
+     <section id="home">
+        <div class="container" style="height:550px; margin-top:-60px;">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="modal-dialog modal-sm">
+					<img src="themes/admin/images/logo.gif" style="width:400px; height:100px;">
+					</div>
+                      <div class="modal-dialog modal-sm">
+						<div class="modal-content">  
+						<div class="modal-body">  
+						<div class="row">
+							<div class="col-md-12">
+								<form role="form" method="post">
+									<div class="text-center">
+									<h2 class="text-center">Please Login </h2>
+									<!--<small>It's free and always will be.</small>-->
+									<hr class="colorgraph">
+									<div class="form-group">
+										<input type="text" name="username" id="display_name" class="form-control input-lg" placeholder="User Name" tabindex="1">
+									</div>
+									<div class="form-group">
+										<input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="2">
+									</div>
+								   <hr class="colorgraph">
+									<div class="row">
+										<div class="col-xs-12 col-md-12"><input type="submit" name="login" value="Login" class="btn-hd btn-capital btn-block btn-lg" tabindex="4"></div>
+									</div>
+									<div class="row">
+									
+									</div>
+									
+									</div>	
+									
+								</form>
+							</div>
+						</div>
+						</div>
+					 </div>
+					</div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+    
+    <div class="divider"></div>
+  
+    
+      
+    
+    
+   
+    
+    
+    
+    
+    <!-- footer -->
+    <footer class="footer1">
+
+    
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="pull-left"> Copyright &copy; <a href="">World IT Dimensional Solutions</a>. All right reserved.</div>
+            <div class="pull-left" style="float: right!important;"><a href="http://witds.com/" target="_blank">Developed by World IT Dimensional Solutions.</a></div>
+        </div>
+    </div> 
+    <!--/.footer-bottom--> 
+</footer>
+
+    
+
+
+
+		<!-- jQuery -->
+<script src="themes/default//js/jquery.js">
+		</script>
+		<!-- Bootstrap Core JavaScript -->
+     	<!--    <script src="js/bootstrap.min.js"></script>-->
+        <script src="themes/default//js/bootstrap.min.js"></script> 
+        <!-- Script to Activate the Carousel -->
+
+
+
+<div id="wrapper">
+    <header>
+        
+    </header>
+    <div class="container" >
+    
+
+  
+    </div> 
+   
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="themes/default//js/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="themes/default//js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function(){
+       $('.carousel').carousel();
+ 
+    });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -129,4 +298,4 @@
             </div>
         </div>
     </body>
-</html>
+</html> --}}
