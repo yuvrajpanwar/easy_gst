@@ -8,6 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class RegisterUserOrder extends Model
 {
 
-    protected $table = 'register_user_order';
     use HasFactory;
+    protected $table = 'register_user_order';
+
+
+
+    
+    public static function updateRegisterReceiptNumber($data, $condition)
+    {
+        return self::where($condition)->update($data);
+    }
 }

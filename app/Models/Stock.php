@@ -5,13 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class Stock extends Model
 {
     use HasFactory;
 
 
-    public static function updateReceiptNumber($data, $condition)
+    protected $table = 'stock';
+
+    public static function getStockById($id)
     {
-        return self::where($condition)->update($data);
+        return self::where('product_id', $id)->first();
     }
 }

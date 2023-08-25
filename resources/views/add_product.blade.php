@@ -25,7 +25,7 @@
                 <div class="col-lg-12">
                     <h1 class="page-header"><i class="fa fa-plus-square"></i> Add Product
                         <div class="action pull-right">
-                            <a href="index.php?component=products&action=list" class="btn btn-primary btn-small"><i
+                            <a href="{{ route('product_list') }}" class="btn btn-primary btn-small"><i
                                     class="fa fa-list"></i> List </a>
                         </div>
                     </h1>
