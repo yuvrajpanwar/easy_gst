@@ -24,6 +24,8 @@ Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLog
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::post('/home', [App\Http\Controllers\HomeController::class, 'create_receipt']);
+
 Route::get('/product_list', [App\Http\Controllers\HomeController::class, 'product_list'])->name('product_list');
 
 Route::get('/add_product', [App\Http\Controllers\HomeController::class, 'add_product'])->name('add_product');

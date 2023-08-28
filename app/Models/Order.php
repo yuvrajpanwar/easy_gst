@@ -9,6 +9,8 @@ class Order extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
 
     public static function updateReceiptNumber($data, $condition)
     {

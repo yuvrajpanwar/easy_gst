@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Stock;
 use App\Models\Product;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use App\Models\OtherOrderItem;
 use App\Models\RegisterUserOrder;
+use App\Models\UserBillingAddress;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -142,6 +147,8 @@ class HomeController extends Controller
     protected function create_receipt( Request $request )
     {
 
+        $login_id = Auth::user()->id;
+
         if(isset($request->add))
         {
         
@@ -157,7 +164,10 @@ class HomeController extends Controller
              $totalitem =sizeof($pro_name);
             
             date_default_timezone_set('Asia/Kolkata');
-            $cuurent_datetime =date("Y-m-d h:i:sa");
+            $cuurent_datetime =date("Y-m-d");
+            
+            // $cuurent_datetime =date("Y-m-d");
+
             $array2d =$_POST;
             
             $size_data = 0;
@@ -165,21 +175,27 @@ class HomeController extends Controller
                 $size_data = max($size_data, count($array2d));
             }
 
-            $user_type = $this->get_control_value("user_type");
             
-            $cylinder_name = $this->get_control_value("cylinder_name");
-            $cylinder_rate = $this->get_control_value("cylinder_rate");
-            $cylinder_pice = $this->get_control_value("cylinder_pice");
+            $user_type = $this->get_control_value("user_type" , $request);
+            
+            $cylinder_name = $this->get_control_value("cylinder_name",$request);
+            $cylinder_rate = $this->get_control_value("cylinder_rate",$request);
+            $cylinder_pice = $this->get_control_value("cylinder_pice",$request);
             $cylinder_amount = $cylinder_rate;
             
-            $regulator_name = $this->get_control_value("regulator_name");
-            $regulator_rate = $this->get_control_value("regulator_rate");
-            $regulator_pice = $this->get_control_value("regulator_pice");
+            $regulator_name = $this->get_control_value("regulator_name",$request);
+            $regulator_rate = $this->get_control_value("regulator_rate",$request);
+            $regulator_pice = $this->get_control_value("regulator_pice",$request);
             
             $regulator_amount = $regulator_rate;
-            $discount_price = $this->get_control_value("discount");
-            $remark = $this->get_control_value("remark_text");
-            
+            $discount_price = $this->get_control_value("discount",$request);
+            $remark = $this->get_control_value("remark_text",$request);
+
+            $recipt_no = $this->get_control_value("recipt_no",$request);
+            $totalprice = 0;
+            $payment_mode = $this->get_control_value("payment_mode",$request);
+            $invoice_date = $this->get_control_value('invoice_date',$request);
+            $invoice_date = changeToReverseDate($invoice_date);
 
             if($pro_name!="")
             {
@@ -195,7 +211,8 @@ class HomeController extends Controller
                 }
                 
                 $order_amount=0;
-                $order_amount=$order_amount.$cylinder_amount.$regulator_amount;
+                $order_amount = $order_amount.$cylinder_amount.$regulator_amount;
+                
                 if($user_type=="General")
                 {
                     $order = new Order();  
@@ -216,9 +233,17 @@ class HomeController extends Controller
                 $order->order_remark = $remark;
                 $order->user_type = $user_type;
                 $order->order_date = $cuurent_datetime;
+                $order->recipt_no = $recipt_no;
+                $order->totalprice = $totalprice;
+                $order->payment_mode = $payment_mode;
+                $order->invice_date = $invoice_date;
+                
                 $order->save();
+              
                 $order_id = $order->id; // This retrieves the inserted order ID
-                            
+                
+                
+
                 if($cylinder_name && $cylinder_rate)
                 {
                     $otherItem->order_id = $order_id;
@@ -240,14 +265,13 @@ class HomeController extends Controller
                 }	     
                        
                 $pro_names = $request->pro_name;
-
-                for($j=0; $j < $totalitem; $j++)
+                for($j=0; $j < sizeof($pro_names); $j++)
                 {   
                     
                     $pro_name = $pro_names[$j];
                 
-                    $total_pieces = $request->pro_name;
-            
+                    $total_pieces = $request->$pro_name;
+                    
                     $pro_details = Product::getProductDetails($pro_name);
 
                     $rate = $pro_details['price'];
@@ -303,7 +327,7 @@ class HomeController extends Controller
 
                         $order_amount=$order_amount + $total_amount;
                         
-                        $stock_details = Stock::getStockById($productID);
+                        $stock_details = Stock::getStockById($pro_name);
  
                         if($stock_details)
                         {
@@ -319,6 +343,7 @@ class HomeController extends Controller
                     }     
                     
                 }
+
                 if ($user_type == "General") {
                     $invoice_num = "G" . $order_id;
                     $data = [
@@ -340,20 +365,20 @@ class HomeController extends Controller
                 }
 
                 // Insert user details........................................
-                $billing_name = $this->get_control_value("billing_name");
-                $billing_number = $this->get_control_value("billing_number");
-                $billing_address = $this->get_control_value("billing_address");
-                $billing_state = $this->get_control_value("billing_state");
+                $billing_name = $this->get_control_value("billing_name",$request);
+                $billing_number = $this->get_control_value("billing_number",$request);
+                $billing_address = $this->get_control_value("billing_address",$request);
+                $billing_state = $this->get_control_value("billing_state",$request);
                 
-                $decider = $this->get_control_value("decider");
+                $decider = $this->get_control_value("decider",$request);
                 if($decider=="no")
                 {
-                    $shippeing_address = $this->get_control_value("shippeing_address");
+                    $shippeing_address = $this->get_control_value("shippeing_address",$request);
                 }
                 else
                 {
-                    $shippeing_address =$billing_address;
-                }
+                    $shippeing_address = $billing_address;
+                } 
                                   
                 if ($billing_name !== "" && $billing_address !== "" && $order_id !== "") {
                     $data = [
@@ -361,12 +386,14 @@ class HomeController extends Controller
                         "name" => $billing_name,
                         "number" => $billing_number,
                         "billing_address" => $billing_address,
-                        "shipping_address" => $shipping_address,
+                        "shipping_address" => $shippeing_address,
                         "state" => $billing_state
                     ];
-                
+                   
                     if ($user_type == "General") {
+                        
                         UserBillingAddress::create($data);
+
                     } elseif ($user_type == "Registered") {
                         RegisterBillingAddress::create($data);
                     }
@@ -377,78 +404,74 @@ class HomeController extends Controller
 
                 // Insert Invoice Details.........................................................
 
-                $invoice_date = changeToReverseDate($this->get_control_value("invoice_date"));
+                $invoice_date = changeToReverseDate($this->get_control_value("invoice_date",$request));
                 if($invoice_date=="0000-00-00" || $invoice_date=="")
                 {
                     redirect( route('home') );die();
                 }
                 
-                $r_charge = $this->get_control_value("r_charge");
-                $con_type = $this->get_control_value("con_type");
-                $sv_numver = $this->get_control_value("sv_numver");
-                $consumer_number = $this->get_control_value("consumer_number");
+                $r_charge = $this->get_control_value("r_charge",$request);
+                $con_type = $this->get_control_value("con_type",$request);
+                $sv_numver = $this->get_control_value("sv_numver",$request);
+                $consumer_number = $this->get_control_value("consumer_number",$request);
                
-                $date_supply = "";
-                $mode = $this->get_control_value("mode");
-                $gst_number = $this->get_control_value("gst_number");
+                $date_supply = '0001-01-01';
+                $mode = $this->get_control_value("mode",$request);
+                $gst_number = $this->get_control_value("gst_number",$request);
                 
                 if($mode=="Both")
                 {
-                    $cash_amount=$this->get_control_value("cash_amount");
-                    $bank_amount=$this->get_control_value("bank_amount");
+                    $cash_amount=$this->get_control_value("cash_amount",$request);
+                    $bank_amount=$this->get_control_value("bank_amount",$request);
                 }
                 else
                 {
-                    $cash_amount="";
-                    $bank_amount="";
+                    $cash_amount=0;
+                    $bank_amount=0;
+                    
+
                 }	
 
-                if($invoice_date!="" && $r_charge!="" && $order_id!="")
-                {
-                    if($user_type=="General")
-                    {
-                        $table_name="oredr_basic_details";
-                        updateInvoice_date(array("invice_date"=>$invoice_date),array("id"=>$order_id));
-                    }
-                    
-                    if($user_type=="Registered")
-                    {
-                        $table_name="register_other_basic_details";
-                        updateRegisterInvoice_date(array("invice_date"=>$invoice_date),array("id"=>$order_id));
-                    }
-                    
-                    $q = new Query();
-                    $q->insert_into("$table_name",array(
-                        "o_id"=>$order_id,
-                        "invoice_date"=>$invoice_date,
-                        "reverse_charge"=>$r_charge,
-                        "content_type"=>$con_type,
-                        "sv_number"=>$sv_numver,
-                        "consumer_number"=>$consumer_number,
-                        "user_gst"=>$gst_number,
-                        "date_of_supply"=>$date_supply,
-                        "payment_mode"=>$mode,
-                        "cash_amount"=>$cash_amount,
-                        "bank_amount"=>$bank_amount
-                    ))
-                    ->run();
+                if (!empty($invoice_date) && !empty($r_charge) && !empty($order_id)) {
 
+                    if ($user_type == "General") {
+                        $table_name = "oredr_basic_details";
+                        Order::where('id', $order_id)->update(['invice_date' => $invoice_date]);
+                    } elseif ($user_type == "Registered") {
+                        $table_name = "register_other_basic_details";
+                        RegisteredOrder::where('id', $order_id)->update(['invoice_date' => $invoice_date]);
+                    }
+                
+                    $dataToInsert = [
+                        "o_id" => $order_id,
+                        "invoice_date" => $invoice_date,
+                        "reverse_charge" => $r_charge,
+                        "content_type" => $con_type,
+                        "sv_number" => $sv_numver,
+                        "consumer_number" => $consumer_number,
+                        "user_gst" => $gst_number,
+                        "date_of_supply" => $date_supply,
+                        "payment_mode" => $mode,
+                        "cash_amount" => $cash_amount,
+                        "bank_amount" => $bank_amount
+                    ];
+                
+                    DB::table($table_name)->insert($dataToInsert);
                 }
+
                 // End of Insert invoice details...............................................
  
-                common::set_message(26);
-                common::redirect_to(common::get_component_link(array("add_order","list"),array("user_type"=>$user_type)));
-                
+                return redirect(route('home'))->with([
+                    'success' => 'Recipt added successfully!'
+                ]);
             }
         }
 
-        return redirect(route('home'))->with([
-            'success' => 'Recipt added successfully!'
-        ]);
+       
     
     }
 
-    public function get_control_value ( $control_name, Request $request ) 
+    public function get_control_value ( $control_name , Request $request) 
     {   
         $returnvalue ='';
 

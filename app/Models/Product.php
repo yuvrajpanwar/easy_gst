@@ -33,12 +33,9 @@ class Product extends Model
 
     ];
 
-
     public static function getProductDetails($id)
     {
-        return DB::table('products')
-            ->where('id', $id)
-            ->first();
+        return self::where('id', $id)->first();
     }
 
 

@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class OtherOrderItem extends Model
 {
     use HasFactory;
+
+    protected $table = 'other_order_item';
+    public $timestamps = false;
 }

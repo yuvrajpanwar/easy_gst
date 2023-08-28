@@ -75,7 +75,7 @@
 
                             <form id="form" action="" method="post" enctype="multipart/form-data"
                                 class="form-horizontal">
-
+                                @csrf
                                 <div class="col-lg-12" id="row_container">
                                     <div class="form-group row_con_mrg">
                                         <div class="col-lg-4">
