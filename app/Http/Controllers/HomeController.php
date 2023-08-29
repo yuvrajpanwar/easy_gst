@@ -12,6 +12,9 @@ use App\Models\RegisterUserOrder;
 use App\Models\UserBillingAddress;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\RegisterUserOrderItem;
+use App\Models\RegisterBillingAddress;
+use App\Models\RegisterOtherOrderItem;
 
 class HomeController extends Controller
 {
@@ -158,6 +161,7 @@ class HomeController extends Controller
 
             if(!$pro_name)
             {
+                dd('here');
                 return redirect(route('home'));
             }
             
@@ -189,6 +193,10 @@ class HomeController extends Controller
             
             $regulator_amount = $regulator_rate;
             $discount_price = $this->get_control_value("discount",$request);
+            if($discount_price=="" || $discount_price==null || $discount_price ==0)
+            {
+                $discount_price = 0.00;
+            }
             $remark = $this->get_control_value("remark_text",$request);
 
             $recipt_no = $this->get_control_value("recipt_no",$request);
@@ -361,7 +369,7 @@ class HomeController extends Controller
                         'totalprice' => $order_amount
                     ];
                     $condition = ['id' => $order_id];
-                    RegisteredOrder::updateRegisterReceiptNumber($data, $condition);
+                    RegisterUserOrder::updateRegisterReceiptNumber($data, $condition);
                 }
 
                 // Insert user details........................................
@@ -403,10 +411,11 @@ class HomeController extends Controller
                 //End Insert user details........................................			
 
                 // Insert Invoice Details.........................................................
-
+                
                 $invoice_date = changeToReverseDate($this->get_control_value("invoice_date",$request));
                 if($invoice_date=="0000-00-00" || $invoice_date=="")
                 {
+                    dd('here1');
                     redirect( route('home') );die();
                 }
                 
@@ -439,12 +448,12 @@ class HomeController extends Controller
                         Order::where('id', $order_id)->update(['invice_date' => $invoice_date]);
                     } elseif ($user_type == "Registered") {
                         $table_name = "register_other_basic_details";
-                        RegisteredOrder::where('id', $order_id)->update(['invoice_date' => $invoice_date]);
+                        RegisterUserOrder::where('id', $order_id)->update(['invice_date' => $invoice_date]);
                     }
                 
                     $dataToInsert = [
                         "o_id" => $order_id,
-                        "invoice_date" => $invoice_date,
+                        "invice_date" => $invoice_date,
                         "reverse_charge" => $r_charge,
                         "content_type" => $con_type,
                         "sv_number" => $sv_numver,
@@ -460,10 +469,11 @@ class HomeController extends Controller
                 }
 
                 // End of Insert invoice details...............................................
- 
-                return redirect(route('home'))->with([
-                    'success' => 'Recipt added successfully!'
-                ]);
+                
+                return "success"; die();
+                // return redirect(route('home'))->with([
+                //     'success' => 'Recipt added successfully!'
+                // ]);
             }
         }
 

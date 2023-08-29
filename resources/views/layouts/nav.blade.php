@@ -2,7 +2,7 @@
 
     <div class="navbar-header" style="width:92%;">
         <div class="col-lg-4">
-            <a class="navbar-brand logo" href="#"><img src="themes/admin//images/2.png" height="40px"
+            <a class="navbar-brand logo" href="#"><img src="{{asset('public/themes/admin//images/2.png')}}" height="40px"
                     width="200px" /> </a>
         </div>
         <div class="col-lg-8">

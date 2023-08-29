@@ -1196,13 +1196,13 @@
 @push('js')
     
    
-    <script src="themes/admin/js/jquery-1.10.2.js"></script>
-    <script src="themes/admin/js/bootstrap.min.js"></script>
-    <script src="themes/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="themes/admin/js/865ee126eb.js"></script>    
-    <script src="themes/admin/js/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="themes/admin/js/plugins/dataTables/dataTables.bootstrap.js"></script>  
-    <script src="themes/admin/js/sb-admin.js"></script>
+    <script src="{{asset('public/themes/admin/js/jquery-1.10.2.js')}}"></script>
+    <script src="{{asset('public/themes/admin/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('public/themes/admin/js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
+    <script src="{{asset('public/themes/admin/js/865ee126eb.js')}}"></script>    
+    <script src="{{asset('public/themes/admin/js/plugins/dataTables/jquery.dataTables.js')}}"></script>
+    <script src="{{asset('public/themes/admin/js/plugins/dataTables/dataTables.bootstrap.js')}}"></script>  
+    <script src="{{asset('public/themes/admin/js/sb-admin.js')}}"></script>
     <script>
         $(document).ready(function () {
             $('#dataTables-example').dataTable({
@@ -1213,9 +1213,9 @@
     </script>
     <script>
     </script>
-    <script src="plugins//tinymce/tinymce.min.js" type="text/javascript"></script>
-    <script src="plugins/uploadify/jquery.uploadify.min.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="plugins/uploadify/uploadify.css">
+    <script src="{{asset('public/plugins//tinymce/tinymce.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('public/plugins/uploadify/jquery.uploadify.min.js')}}" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="{{asset('public/plugins/uploadify/uploadify.css')}}">
     <script>
         $('#mediaModel').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
@@ -1283,7 +1283,7 @@
             convert_urls: false
         }); 
     </script>
-    <script src="i-js/jquery-ui.js"></script>
+    <script src="{{asset('public/i-js/jquery-ui.js')}}"></script>
     <script>
         $(function () {
 

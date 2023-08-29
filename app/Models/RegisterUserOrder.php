@@ -11,7 +11,7 @@ class RegisterUserOrder extends Model
     use HasFactory;
     protected $table = 'register_user_order';
 
-
+    public $timestamps = false;
 
     
     public static function updateRegisterReceiptNumber($data, $condition)

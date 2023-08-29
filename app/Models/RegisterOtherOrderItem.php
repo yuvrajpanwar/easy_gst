@@ -9,7 +9,9 @@ class RegisterOtherOrderItem extends Model
 {
     use HasFactory;
 
-    protected $table = 'register_user_order';
+    protected $table = 'register_other_order_item';
+
+    public $timestamps = false;
 
 
 }

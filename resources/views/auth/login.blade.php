@@ -17,10 +17,9 @@
 
 
     <title></title>
-    <link href="themes/default/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="themes/default/css/bootstrap-theme.css" rel="stylesheet" />
-    <link href="themes/default/css/custom.css" rel="stylesheet" />
-    <link href="themes/default/css/font-awesome.css" rel="stylesheet" />
+    <link href="{{asset('public/themes/default/css/bootstrap.min.css')}}" rel="stylesheet" />
+    <link href="{{asset('public/themes/default/css/custom.css')}}" rel="stylesheet" />
+    <link href="{{asset('public/themes/default/css/font-awesome.css')}}" rel="stylesheet" />
     <link href='https://fonts.googleapis.com/css?family=Lato:400,300' rel="stylesheet" type="text/css" />
 
     <style type="text/css">
@@ -60,7 +59,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="modal-dialog modal-sm">
-                        <img src="themes/admin/images/logo.gif" style="width:400px; height:100px;">
+                        <img src="{{ asset('public/themes/admin/images/logo.gif')}}" style="width:400px; height:100px;">
                     </div>
                     <div class="modal-dialog modal-sm">
                         <div class="modal-content">
@@ -125,15 +124,15 @@
     </footer>
 
     <!-- jQuery -->
-    <script src="themes/default//js/jquery.js">
+    <script src="{{asset('public/themes/default//js/jquery.js')}}">
     </script>
 
-    <script src="themes/default//js/bootstrap.min.js"></script>
+    <script src="{{asset('public/themes/default//js/bootstrap.min.js')}}"></script>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="themes/default//js/jquery.js"></script>
+    <script src="{{asset('public/themes/default//js/jquery.js')}}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="themes/default//js/bootstrap.min.js"></script>
+    <script src="{{asset('public/themes/default//js/bootstrap.min.js')}}"></script>
     <script>
         $(document).ready(function () {
             $('.carousel').carousel();
