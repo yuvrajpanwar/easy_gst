@@ -56,24 +56,24 @@ class HomeController extends Controller
     {
         
         Product::create([
-            'title' => $request->title,
-            'description' => '',
-            'image' => '',
+            'title' => $this->get_control_value("title",$request),
+            'description' =>$this->get_control_value("description",$request),
+            'image' => $this->get_control_value("image",$request),
             'currency' =>'INR',
-            'discount' => $request->discount,
+            'discount' => $this->get_control_value("discount",$request),
             'cod' => 0,
             'emi' => 0,
             'status' => 1,
-            'gmqty' => '',
-            'unit' => '',
-            'type' => '',
-            'product_type' => '',
-            'hsn_code' => $request->hsn_code,
-            'price' => $request->price,
-            'cgst_tax' => $request->cgst_tax,
-            'sgst_tax' => $request->sgst_tax,
+            'gmqty' => $this->get_control_value("gmqty",$request),
+            'unit' => $this->get_control_value("unit",$request),
+            'type' => $this->get_control_value("type",$request),
+            'product_type' => $this->get_control_value("product_type",$request),
+            'hsn_code' => $this->get_control_value("hsn_code",$request),
+            'price' => $this->get_control_value("price",$request),
+            'cgst_tax' =>$this->get_control_value("cgst_tax",$request),
+            'sgst_tax' => $this->get_control_value("sgst_tax",$request),
             'admin_id' => Auth::user()->id,
-            'rk_code' => '',
+            'rk_code' => $this->get_control_value("rk_code",$request),
         ]);
 
         return redirect(route('product_list'))->with([
@@ -154,82 +154,72 @@ class HomeController extends Controller
 
         if(isset($request->add))
         {
-        
-            $output = array();
 
-            $pro_name = $request->pro_name;
-
+            
+            $pro_name = $this->get_control_value("pro_name" , $request);
             if(!$pro_name)
-            {
-                dd('here');
-                return redirect(route('home'));
+            { 
+                return redirect()->route('home')->withErrors(['message' => 'Please select a product']);
             }
             
-             $totalitem =sizeof($pro_name);
+            
             
             date_default_timezone_set('Asia/Kolkata');
+
+
             $cuurent_datetime =date("Y-m-d");
             
-            // $cuurent_datetime =date("Y-m-d");
-
-            $array2d =$_POST;
-            
-            $size_data = 0;
-            foreach ($array2d as $subArray) {
-                $size_data = max($size_data, count($array2d));
-            }
-
-            
+            $totalitem =sizeof($pro_name);
             $user_type = $this->get_control_value("user_type" , $request);
-            
+
             $cylinder_name = $this->get_control_value("cylinder_name",$request);
             $cylinder_rate = $this->get_control_value("cylinder_rate",$request);
             $cylinder_pice = $this->get_control_value("cylinder_pice",$request);
-            $cylinder_amount = $cylinder_rate;
-            
+              
             $regulator_name = $this->get_control_value("regulator_name",$request);
             $regulator_rate = $this->get_control_value("regulator_rate",$request);
             $regulator_pice = $this->get_control_value("regulator_pice",$request);
             
-            $regulator_amount = $regulator_rate;
             $discount_price = $this->get_control_value("discount",$request);
             if($discount_price=="" || $discount_price==null || $discount_price ==0)
             {
                 $discount_price = 0.00;
             }
-            $remark = $this->get_control_value("remark_text",$request);
 
+            $remark = $this->get_control_value("remark_text",$request);
             $recipt_no = $this->get_control_value("recipt_no",$request);
-            $totalprice = 0;
             $payment_mode = $this->get_control_value("payment_mode",$request);
             $invoice_date = $this->get_control_value('invoice_date',$request);
             $invoice_date = changeToReverseDate($invoice_date);
+            $totalprice = 0;
 
             if($pro_name!="")
             {
                 if($cylinder_rate)
                 {
-                    $totalitem = $totalitem+1;
-                
+                    $totalitem = $totalitem + 1;
+                    $cylinder_amount = $cylinder_rate * $cylinder_pice;   
                 }	
                 if($regulator_rate)
                 {
-                    $totalitem = $totalitem+1;
-                
+                    $totalitem = $totalitem + 1;
+                    $regulator_amount = $regulator_rate * $regulator_pice;
                 }
                 
-                $order_amount=0;
-                $order_amount = $order_amount.$cylinder_amount.$regulator_amount;
+                $order_amount = 0;
+                $order_amount = $order_amount + $cylinder_amount + $regulator_amount;
                 
                 if($user_type=="General")
                 {
                     $order = new Order();  
+
                     $otherItem= new OtherOrderItem();
                     $otherItem2= new OtherOrderItem();
                 }
                 if($user_type=="Registered")
                 {
                     $order = new RegisterUserOrder();
+
                     $otherItem=new RegisterOtherOrderItem();
                     $otherItem2=new RegisterOtherOrderItem();
                 }
@@ -238,7 +228,7 @@ class HomeController extends Controller
                 $order->totalitem = $totalitem;
                 $order->discount = $discount_price;
                 $order->status = 3;
-                $order->order_remark = $remark;
+                $order->order_remark = $remark; 
                 $order->user_type = $user_type;
                 $order->order_date = $cuurent_datetime;
                 $order->recipt_no = $recipt_no;
@@ -250,7 +240,7 @@ class HomeController extends Controller
               
                 $order_id = $order->id; // This retrieves the inserted order ID
                 
-                
+
 
                 if($cylinder_name && $cylinder_rate)
                 {
@@ -283,7 +273,7 @@ class HomeController extends Controller
                     $pro_details = Product::getProductDetails($pro_name);
 
                     $rate = $pro_details['price'];
-                    $rate_all = $rate*$total_pieces;
+                    $rate_all = $rate * $total_pieces;
 
                     $cgst_tax = $pro_details['cgst_tax'];
                     $sgst_tax = $pro_details['sgst_tax'];
@@ -306,7 +296,7 @@ class HomeController extends Controller
                         $sgst_amount =0;
                     }
                         
-                    $total_amount = $rate_all+$cgst_amount+$sgst_amount;
+                    $total_amount = $rate_all+ $cgst_amount + $sgst_amount;
                     
                     if($pro_name)
                     {
@@ -372,7 +362,8 @@ class HomeController extends Controller
                     RegisterUserOrder::updateRegisterReceiptNumber($data, $condition);
                 }
 
-                // Insert user details........................................
+
+                // Insert Billing Address details........................................
                 $billing_name = $this->get_control_value("billing_name",$request);
                 $billing_number = $this->get_control_value("billing_number",$request);
                 $billing_address = $this->get_control_value("billing_address",$request);
@@ -396,8 +387,7 @@ class HomeController extends Controller
                         "billing_address" => $billing_address,
                         "shipping_address" => $shippeing_address,
                         "state" => $billing_state
-                    ];
-                   
+                    ];   
                     if ($user_type == "General") {
                         
                         UserBillingAddress::create($data);
@@ -405,13 +395,11 @@ class HomeController extends Controller
                     } elseif ($user_type == "Registered") {
                         RegisterBillingAddress::create($data);
                     }
-                }
-                
-                
-                //End Insert user details........................................			
+                } 
+                //End Insert Billing Address details........................................			
 
-                // Insert Invoice Details.........................................................
-                
+
+                // Insert Invoice Details.........................................................       
                 $invoice_date = changeToReverseDate($this->get_control_value("invoice_date",$request));
                 if($invoice_date=="0000-00-00" || $invoice_date=="")
                 {
@@ -436,9 +424,7 @@ class HomeController extends Controller
                 else
                 {
                     $cash_amount=0;
-                    $bank_amount=0;
-                    
-
+                    $bank_amount=0; 
                 }	
 
                 if (!empty($invoice_date) && !empty($r_charge) && !empty($order_id)) {
@@ -453,7 +439,7 @@ class HomeController extends Controller
                 
                     $dataToInsert = [
                         "o_id" => $order_id,
-                        "invice_date" => $invoice_date,
+                        "invoice_date" => $invoice_date,
                         "reverse_charge" => $r_charge,
                         "content_type" => $con_type,
                         "sv_number" => $sv_numver,
@@ -471,9 +457,6 @@ class HomeController extends Controller
                 // End of Insert invoice details...............................................
                 
                 return "success"; die();
-                // return redirect(route('home'))->with([
-                //     'success' => 'Recipt added successfully!'
-                // ]);
             }
         }
 
@@ -495,5 +478,9 @@ class HomeController extends Controller
 
     }
 
+    public function receipt_list()
+    {
+        return view('receipt_list');
+    }
   
 }

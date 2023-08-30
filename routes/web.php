@@ -35,3 +35,6 @@ Route::post('/add_product', [App\Http\Controllers\HomeController::class, 'create
 Route::post('/get_max_date', [App\Http\Controllers\HomeController::class, 'get_max_date'])->name('get_max_date');
 
 Route::post('/calculate_amount', [App\Http\Controllers\HomeController::class, 'calculate_amount'])->name('calculate_amount');
+
+Route::get('/receipt_list', [App\Http\Controllers\HomeController::class, 'receipt_list'])->name('receipt_list');
+
