@@ -38,13 +38,11 @@
 
 
                 <div class="col-md-12">
-
                     @if(session()->has('success'))
                         <div class="notification alert alert-success  alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
                                     <div>
-                                        <strong>New </strong>						
-                            details has been added successfully.
+                                        {!! session('success') !!}
                                     </div>
                         </div>
                     @endif
@@ -59,8 +57,8 @@
                                     <th>Title</th>
                                     <th>HSN Code</th>
                                     <th>Price</th>
-                                    <th>CGST</th>
-                                    <th>SGST</th>
+                                    <th>CGST %</th>
+                                    <th>SGST %</th>
                                     <th>Option</th>
                                 </tr>
 
@@ -75,14 +73,12 @@
                                             <td>{{$product->cgst_tax}}</td>
                                             <td>{{$product->sgst_tax}}</td>
                                             <td class="center">
-                                                <a href="index.php?component=products&action=edit&id=21" class="btn btn-sm"
+                                                <a href="{{route('edit_product',['id'=>$product->id])}}" class="btn btn-sm"
                                                     title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
                                                 <a onclick="return confirm('Are you sure Delete?')"
-                                                    href="index.php?component=products&action=delete&id=21" class="btn btn-sm"
+                                                    href="{{route('delete_product',['id'=>$product->id])}}" class="btn btn-sm"
                                                     title="Delete"><i class="glyphicon glyphicon-remove"></i></a>
-
                                             </td>
-
                                     </tr> 
                                 @endforeach   
 
@@ -103,15 +99,15 @@
     
 
     <!-- Core Scripts - Include with every page -->
-    <script src="themes/admin/js/jquery-1.10.2.js"></script>
-    <script src="themes/admin/js/bootstrap.min.js"></script>
-    <script src="themes/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="themes/admin/js/865ee126eb.js"></script>
+    <script src="{{ asset('public/themes/admin/js/jquery-1.10.2.js') }}"></script>
+    <script src="{{ asset('public/themes/admin/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('public/themes/admin/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
+    <script src="{{ asset('public/themes/admin/js/865ee126eb.js') }}"></script>
     <!-- Page-Level Plugin Scripts - Tables -->
-    <script src="themes/admin/js/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="themes/admin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="{{ asset('public/themes/admin/js/plugins/dataTables/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('public/themes/admin/js/plugins/dataTables/dataTables.bootstrap.js') }}"></script>
     <!-- SB Admin Scripts - Include with every page -->
-    <script src="themes/admin/js/sb-admin.js"></script>
+    <script src="{{ asset('public/themes/admin/js/sb-admin.js') }}"></script>
 
     <script>
         $(document).ready(function () {

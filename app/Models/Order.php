@@ -11,6 +11,10 @@ class Order extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'status'
+    ];
+
 
     public static function updateReceiptNumber($data, $condition)
     {

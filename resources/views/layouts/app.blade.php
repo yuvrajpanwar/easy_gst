@@ -1,5 +1,5 @@
 <div style='background-color:red;text-align:center;'> <br /><br />This license is going to expire on
-    <strong>2023-08-30</strong>, Please contact service provider to continue using the software.
+    <strong>2023-09-30</strong>, Please contact service provider to continue using the software.
 </div>
 
 <!DOCTYPE html>

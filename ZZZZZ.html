@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title></title>
+    <!--<link rel="icon" type="image/png" href="themes/admin/images/favicon.png"> -->
+    <!-- Core CSS - Include with every page -->
+    <link href="themes/admin/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Page-Level Plugin CSS - Dashboard -->
+    <link href="themes/admin/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <link href="themes/admin/css/plugins/timeline/timeline.css" rel="stylesheet">
+
+    <!-- SB Admin CSS - Include with every page -->
+    <link href="themes/admin/css/sb-admin.css" rel="stylesheet">
+    <link href="themes/admin/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <script src="js/jquery-2.2.3.min.js"></script>
+        <script>
+            /*$(function(){
+                $("li").click(function(){
+                    // alert("hello");
+                    $('li a.selected').parents('li').css("height", "auto");​
+                    // $(this).parent().css("height", "auto" );
+                });
+            });*/
+
+        </script>
+        <style>
+            .label {
+                margin: 0 20px 0 10px;
+
+                padding: 3px 5px 2px;
+                background-color: #F66;
+            }
+        </style>
+
+
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+
+            <div class="navbar-header" style="width:92%;">
+                <div class="col-lg-4">
+                    <a class="navbar-brand logo" href="#"><img src="themes/admin//images/2.png" height="40px"
+                            width="200px" /> </a>
+                </div>
+                <div class="col-lg-8">
+                    <a class="navbar-brand logo" href="#"
+                        style="height: 25px; padding: 3px; color:white; font-size: 30px; width: 100%;text-align: center;"><strong>Welcome
+                        </strong> </a>
+                </div>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+
+                <!--<li><a href="#">Help</a></li>-->
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+
+                        <!--<li><a href="index.php?component=manage_profile&action=manage"><i class="fa fa-users fa-fw"></i> Manage Profile</a></li>-->
+                        <li><a href="index.php?component=address&action=edit"><i class="fa fa-users fa-fw"></i> Manage
+                                Billing Address</a></li>
+
+                        <!--<li><a href="index.php?component=address&action=edit"><i class="fa fa-users fa-fw"></i> Manage Billing Address</a></li>-->
+
+                        <li><a href="index.php?component=user&action=changepassword"><i class="fa fa-lock fa-fw"></i>
+                                Change Password</a></li>
+                        <li><a href="index.php?component=home&action=logout"><i class="fa fa-sign-out fa-fw"></i>
+                                Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default navbar-static-side" id="navbar-default" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="index.php?component=add_order&action=add"><!--<i class="fa fa-dashboard fa-fw"></i>--><i
+                                    class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a>
+                        </li>
+
+                        <!--<li>
+                            <a href="#"><i class="fa fa-users" aria-hidden="true"></i> Users<span class="label label-important">0</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li style="border-top:1px solid white !important;">
+									<a href="index.php?component=appuser&action=list"><i class="fa fa-list-alt"></i>List</a>
+								</li>
+								<li style="border-top:1px solid white !important;">
+									<a href="index.php?component=appuser&action=add"><i class="fa fa-plus-square"></i> Add New</a>
+								</li>   
+                                    
+                            </ul>
+
+                        </li>-->
+                        <!--<li>
+                            <a href="#"><i class="glyphicon glyphicon-book"></i> Categories<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                            <a href="index.php?component=category&action=list"><i class="fa fa-list-alt"></i>List</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.php?component=category&action=add"><i class="fa fa-plus-square"></i> Add New</a>
+                                        </li> 
+                            </ul> 
+                        </li> 
+						<li>
+                            <a href="#"><i class="glyphicon glyphicon-book"></i> Brand<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                            <a href="index.php?component=brand&action=list"><i class="fa fa-list-alt"></i>List</a>
+                                        </li>
+                                        <li>
+                                            <a href="index.php?component=brand&action=add"><i class="fa fa-plus-square"></i> Add New</a>
+                                        </li> 
+                            </ul> 
+                        </li>-->
+
+                        <!--<li>
+                            <a href="#"><i class="fa fa-first-order" aria-hidden="true"></i> Ledger<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                              
+								<li style="border-top:1px solid white !important;">
+									<a href="index.php?component=create_ledger&action=add"><i class="fa fa-plus-square"></i> Create Ledger</a>
+								</li> 
+								<li style="border-top:1px solid white !important;">
+									<a href="index.php?component=sale&action=add"><i class="fa fa-plus-square"></i> Sale</a>
+								</li> 
+								<li style="border-top:1px solid white !important;">
+									<a href="index.php?component=add_order&action=list"><i class="fa fa-list-alt"></i> Sale List</a>
+								</li>
+								<li style="border-top:1px solid white !important;">
+									<a href="index.php?component=sale_payment&action=add"><i class="fa fa-money" aria-hidden="true"></i> Reciept</a>
+								</li>
+								
+								<li style="border-top:1px solid white !important;">
+									<a href="index.php?component=party_invoice&action=list"><i class="fa fa-list-alt"></i> Reciept List</a>
+								</li>
+								
+								<li style="border-top:1px solid white !important;">
+									<a href="index.php?component=pay_payment&action=add"><i class="fa fa-money" aria-hidden="true"></i> Payment</a>
+								</li>
+								<li style="border-top:1px solid white !important;">
+									<a href="index.php?component=payment_list&action=list"><i class="fa fa-money" aria-hidden="true"></i> Payment list</a>
+								</li>
+								<li style="border-top:1px solid white !important;">
+									<a href="index.php?component=sale_ledger&action=list"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Party Ledger</a>
+								</li>
+								
+								
+                            </ul> 
+                        </li>-->
+                        <li class="">
+                            <a href="#"><!--<i class="glyphicon glyphicon-book"></i>--><i class="fa fa-product-hunt"
+                                    aria-hidden="true"></i> Products<span class="label label-important">0</span><span
+                                    class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li style="border-top:1px solid white !important;">
+                                    <a href="index.php?component=products&action=list"><i class="fa fa-list-alt"></i>
+                                        List</a>
+                                </li>
+                                <li style="border-top:1px solid white !important;">
+                                    <a href="index.php?component=products&action=add"><i class="fa fa-plus-square"></i>
+                                        Add New</a>
+                                </li>
+                                <!--<li style="border-top:1px solid white !important;">
+									<a href="index.php?component=products&action=purchase_list"><i class="fa fa-list-alt"></i> Product for purchase</a>
+								</li>-->
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><!--<i class="glyphicon glyphicon-book"></i>--><i class="fa fa-database"
+                                    aria-hidden="true"></i> Manage Receipt<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li style="border-top:1px solid white !important;">
+                                    <a href="index.php?component=add_order&action=add"><i class="fa fa-plus-square"></i>
+                                        Add New</a>
+                                </li>
+                                <li style="border-top:1px solid white !important;">
+                                    <a href="index.php?component=add_order&action=list"><i class="fa fa-list-alt"></i>
+                                        List</a>
+                                </li>
+                                <li style="border-top:1px solid white !important;">
+                                    <a href="index.php?component=add_order&action=cancel_list"><i
+                                            class="fa fa-list-alt"></i> Cancel List</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--<li>
+                            <a href="#"><i class="fa fa-database" aria-hidden="true"></i> Journal<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                               		 <li style="border-top:1px solid white !important;">
+                                            <a href="index.php?component=general&action=add"><i class="fa fa-plus-square"></i> Add New</a>
+                                     </li> 
+                            </ul> 
+                        </li>-->
+
+                        <li>
+                            <a href="#"><i class="fa fa-database" aria-hidden="true"></i> Stock<span
+                                    class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+
+                                <li style="border-top:1px solid white !important;">
+                                    <a href="index.php?component=stock&action=add"><i class="fa fa-plus-square"></i> Add
+                                        New</a>
+                                </li>
+                                <li style="border-top:1px solid white !important;">
+                                    <a href="index.php?component=stock&action=list"><i class="fa fa-list-alt"></i>
+                                        Availablle Stock</a>
+                                </li>
+                                <li style="border-top:1px solid white !important;">
+                                    <a href="index.php?component=stock&action=stock_reports"><i
+                                            class="fa fa-list-alt"></i> Purchased Stock</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!--<li>
+                            <a href="#"><i class="glyphicon glyphicon-book"></i> Slider<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                               		 <li>
+                                            <a href="index.php?component=banners&action=list"><i class="fa fa-list-alt"></i>List</a>
+                                     </li>
+                                   	 <li>
+                                            <a href="index.php?component=banners&action=add"><i class="fa fa-list-alt"></i>Add New</a>
+                                     </li>    
+                            </ul> 
+                        </li>-->
+
+                        <!--<li>
+                            <a href="#"><i class="fa fa-building" aria-hidden="true"></i> Distributer<span class="label label-important"></span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+								<li style="border-top:1px solid white !important;">
+                                    <a href="index.php?component=distributer&action=add"><i class="fa fa-plus-square"></i> Add New</a>
+                                </li> 
+                                <li style="border-top:1px solid white !important;">
+                                    <a href="index.php?component=distributer&action=list"><i class="fa fa-list-alt"></i> List</a>
+                                </li> 
+								
+								
+                            </ul>
+
+                        </li>-->
+                        <!--<li>
+                            <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Purchase<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+								 
+								<li style="border-top:1px solid white !important;">
+                                    <a href="index.php?component=consignment&action=add"><i class="fa fa-plus-square"></i> Add Purchase</a>
+                                </li> 
+								<li style="border-top:1px solid white !important;">
+                                    <a href="index.php?component=consignment&action=list"><i class="fa fa-list-alt"></i> Purchase List</a>
+                                </li>
+								<li style="border-top:1px solid white !important;">
+                                    <a href="index.php?component=payment&action=add"><i class="fa fa-money" aria-hidden="true"></i> Payment</a>
+                                </li>
+								
+								
+                            </ul>
+
+                        </li>-->
+                        <li>
+                            <a href="#"><i class="fa fa-flag" aria-hidden="true"></i> Report<span
+                                    class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li style="border-top:1px solid white !important;">
+                                    <a href="index.php?component=reports&action=sale_report"><i
+                                            class="fa fa-list-alt"></i> Sale Report</a>
+                                </li>
+                                <li style="border-top:1px solid white !important;">
+                                    <a href="index.php?component=reports&action=list"><i class="fa fa-list-alt"></i>
+                                        General Report</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--<li>
+							<a href="#"><i class="fa fa-flag" aria-hidden="true"></i> Amount Status<span class="fa arrow"></span></a>
+							<ul class="nav nav-second-level">
+								<li style="border-top:1px solid white !important;">
+                                    <a href="index.php?component=final_calculation&action=list"><i class="fa fa-list-alt"></i> List</a>
+                                </li>
+							</ul>
+						</li>-->
+                        <!--<li>
+							<a href="#"><i class="glyphicon glyphicon-book"></i> Ledger<span class="fa arrow"></span></a>
+							<ul class="nav nav-second-level">
+								<li>
+                                    <a href="index.php?component=purchase_ledger&action=list"><i class="fa fa-list-alt"></i> Purchase Ledger</a>
+                                </li>
+								<li>
+                                    <a href="index.php?component=payment&action=add"><i class="fa fa-list-alt"></i> Payment</a>
+                                </li>
+							</ul>
+						</li>-->
+                        <!--<li>
+                            <a href="#"><i class="glyphicon glyphicon-book"></i> Point History<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="index.php?component=point_history&action=history-list"><i class="fa fa-list-alt"></i> Point History</a>
+                                </li> 
+                            </ul>
+
+                        </li>-->
+                        <!-- <li>
+                            <a href="#"><i class="glyphicon glyphicon-book"></i> Query<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="index.php?component=satisfaction&action=list"><i class="fa fa-list-alt"></i>List</a>
+                                </li> 
+                            </ul>
+
+                        </li>-->
+
+                        <!-- <li>
+                            <a href="#"> <i class="fa fa-commenting-o" aria-hidden="true"></i> Send Notification<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li style="border-top:1px solid white !important;">
+                                    <a href="index.php?component=user_massage&action=sendmessage"> User</a>
+                                </li> 
+                            </ul>
+
+                        </li>-->
+                    </ul>
+                    <!-- /#side-menu -->
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header"><i class="fa fa-folder fa-fw"></i> Billing Address
+
+                    </h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-plus-circle fa-fw"></i> Update address
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+
+                            <form id="form" action="" method="post" enctype="multipart/form-data"
+                                class="form-horizontal">
+
+                                <div class="form-group">
+                                    <label for="text1" class="control-label col-lg-4">Company Name</label>
+                                    <div class="col-lg-8">
+                                        <input class="text-input form-control" name="title" value="" id="txttitle"
+                                            type="text" /> (Ex. ABC Series)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="text1" class="control-label col-lg-4">GST Number</label>
+                                    <div class="col-lg-8">
+                                        <input class="text-input form-control" name="gst_num" value="" id="txttitle"
+                                            type="text" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="text1" class="control-label col-lg-4">Company Address</label>
+                                    <div class="col-lg-8">
+                                        <input class="text-input form-control" name="address" value="" id="txttitle"
+                                            type="text" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="text1" class="control-label col-lg-4">City</label>
+                                    <div class="col-lg-8">
+                                        <input class="text-input form-control" name="city" value="" id="txttitle"
+                                            type="text" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="text1" class="control-label col-lg-4">State and Zipcode</label>
+                                    <div class="col-lg-8">
+                                        <input class="text-input form-control" name="statezip" value="" id="txttitle"
+                                            type="text" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="text1" class="control-label col-lg-4">Country</label>
+                                    <div class="col-lg-8">
+                                        <input class="text-input form-control" name="country" value="" id="txttitle"
+                                            type="text" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="text1" class="control-label col-lg-4">Phone</label>
+                                    <div class="col-lg-8">
+                                        <input class="text-input form-control" name="phone" value="" id="txttitle"
+                                            type="text" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="text1" class="control-label col-lg-4">Email Id</label>
+                                    <div class="col-lg-8">
+                                        <input class="text-input form-control" name="email" value="" id="txttitle"
+                                            type="text" />
+                                    </div>
+                                </div>
+                                <!--<div class="form-group">
+                        <label for="text1" class="control-label col-lg-4">Email</label>
+                        <div class="col-lg-8">
+						<input class="text-input form-control" name="email" value="" id="txttitle" type="text"  /> 
+					</div>
+                    </div>-->
+
+                                <p>
+                                <div class="col-lg-4"></div>
+                                <input class="btn col-md-8 btn-primary" type="submit" name="add" value="Add" />
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Core Scripts - Include with every page -->
+    <script src="themes/admin/js/jquery-1.10.2.js"></script>
+    <script src="themes/admin/js/bootstrap.min.js"></script>
+    <script src="themes/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <!--<script src="https://use.fontawesome.com/865ee126eb.js"></script>-->
+    <script src="themes/admin/js/865ee126eb.js"></script>
+    <!-- Page-Level Plugin Scripts - Tables -->
+    <script src="themes/admin/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="themes/admin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <!-- SB Admin Scripts - Include with every page -->
+    <script src="themes/admin/js/sb-admin.js"></script>
+
+    <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
+
+    <script>
+        $(document).ready(function () {
+            $('#dataTables-example').dataTable({
+                "bSort": false
+            });
+
+        });
+    </script>
+    <script>
+    </script>
+    <div class="modal fade bs-example-modal-lg" id="mediaModel" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="panel">
+                    <div class="panel-body">
+
+                        <div class="mediafiles" id="mediaContents">
+                            <form>
+                                <input class="pull-left" id="file_upload" name="file_upload" type="file"
+                                    multiple="true" />
+
+                            </form>
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="panel-heading">
+                                        <label class="panel-title">Media Files</label>
+                                    </div>
+                                    <div id="mediafiles">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="plugins//tinymce/tinymce.min.js" type="text/javascript"></script>
+    <script src="plugins/uploadify/jquery.uploadify.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="plugins/uploadify/uploadify.css">
+    <script>
+        $('#mediaModel').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this);
+            $('#file_upload').uploadify({
+                'formData': {
+                    'timestamp': '',
+                    'token': '6b79a77180e9ec3a7ca351ebe54641a2'
+                },
+                'swf': 'plugins/uploadify/uploadify.swf',
+                'uploader': 'plugins/uploadify/uploadmedia.php',
+                'onUploadSuccess': function (file, data, response) {
+                    modal.find('#mediafiles').prepend(data);
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "plugins/media/load.php",
+                data: {}
+            })
+                .done(function (msg) {
+                    modal.find('#mediafiles').html(msg);
+                });
+        });
+
+        $('#mediafiles').on('click', '.media-img', function (event) {
+            var name = $(this).data("name");
+            tinyMCE.activeEditor.execCommand('mceInsertContent', 0, '<img src="' + name + '" />');
+            $('#mediaModel').modal('hide')
+        });
+        tinymce.init({
+            selector: "textarea#elm1",
+            theme: "modern",
+            width: '100%',
+            height: 300,
+            plugins: [
+                "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "save table contextmenu directionality emoticons template paste textcolor"
+            ],
+            content_css: "css/content.css",
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+            style_formats: [
+                { title: 'Bold text', inline: 'b' },
+                { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                { title: 'Example 1', inline: 'span', classes: 'example1' },
+                { title: 'Example 2', inline: 'span', classes: 'example2' },
+                { title: 'Table styles' },
+                { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+            ],
+            convert_urls: false
+        }); 
+    </script>
+</body>
+
+</html>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Add Product
+    Company Details
 @endsection
 
   
@@ -20,136 +20,103 @@
 
 @section('content')
 
-        <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-plus-square"></i> Add Product
-                        <div class="action pull-right">
-                            <a href="{{ route('product_list') }}" class="btn btn-primary btn-small"><i
-                                    class="fa fa-list"></i> List </a>
-                        </div>
-                    </h1>
-                </div>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header"><i class="fa fa-folder fa-fw"></i> Billing Address
+
+                </h1>
             </div>
-            <form id="form" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                @csrf
+        </div>
+        <div class="row">
+            <div class="col-md-12">
 
-                <div class="row">
-                    <div class="col-md-9">
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <i class="fa fa-plus-circle fa-fw"></i> Add Level
-                            </div>
-                            <!-- /.panel-heading -->
-                            <div class="panel-body">
-
-
-
-                                <div class="form-group">
-                                    <div class="col-md-8">
-                                        <label>Product Name *</label>
-                                        <input class="text-input form-control product_name" name="title" id="txttitle"
-                                            type="text" /> (Ex. ABC )
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>HSN Code *</label>
-
-                                        <Input type="text" id="hsn_code" class="text-input form-control"
-                                            name="hsn_code">
-                                    </div>
-
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <label>Details</label>
-                                        <textarea id="elm12" class="text-input form-control" name="content"></textarea>
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group">
-                                    <div class="col-lg-3">
-                                        <label>Price</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="price" id="price" />
-                                            <span class="input-group-addon">INR</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <label>Discount</label>
-                                        <div class="input-group">
-
-                                            <input type="text" class="form-control" name="discount" id="discount" />
-                                            <span class="input-group-addon">INR</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <label>CGST</label>
-                                        <div class="input-group">
-
-                                            <input type="text" class="form-control" name="cgst_tax" id="cgst_tax" />
-                                            <span class="input-group-addon">%</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <label>SGST</label>
-                                        <div class="input-group">
-
-                                            <input type="text" class="form-control" name="sgst_tax" id="sgst_tax" />
-                                            <span class="input-group-addon">%</span>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <p>
-                                <div class="col-lg-4"></div>
-                                <input class="btn col-md-8 btn-primary" type="submit" id="final_done" name="add"
-                                    value="Add" />
-                                </p>
-
-                            </div>
-                        </div>
-
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-plus-circle fa-fw"></i> Update address
                     </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
 
+                        <form id="form" action="{{ route('update_company_details')}}" method="post" enctype="multipart/form-data"
+                            class="form-horizontal">
+                            @csrf
+                            <div class="form-group">
+                                <label for="text1" class="control-label col-lg-4">Company Name</label>
+                                <div class="col-lg-8">
+                                    <input class="text-input form-control" name="title" value="" id="txttitle"
+                                        type="text" /> (Ex. ABC Series)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="text1" class="control-label col-lg-4">GST Number</label>
+                                <div class="col-lg-8">
+                                    <input class="text-input form-control" name="gst_num" value="" id="txttitle"
+                                        type="text" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="text1" class="control-label col-lg-4">Company Address</label>
+                                <div class="col-lg-8">
+                                    <input class="text-input form-control" name="address" value="" id="txttitle"
+                                        type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="text1" class="control-label col-lg-4">City</label>
+                                <div class="col-lg-8">
+                                    <input class="text-input form-control" name="city" value="" id="txttitle"
+                                        type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="text1" class="control-label col-lg-4">State and Zipcode</label>
+                                <div class="col-lg-8">
+                                    <input class="text-input form-control" name="statezip" value="" id="txttitle"
+                                        type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="text1" class="control-label col-lg-4">Country</label>
+                                <div class="col-lg-8">
+                                    <input class="text-input form-control" name="country" value="" id="txttitle"
+                                        type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="text1" class="control-label col-lg-4">Phone</label>
+                                <div class="col-lg-8">
+                                    <input class="text-input form-control" name="phone" value="" id="txttitle"
+                                        type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="text1" class="control-label col-lg-4">Email Id</label>
+                                <div class="col-lg-8">
+                                    <input class="text-input form-control" name="email" value="" id="txttitle"
+                                        type="text" />
+                                </div>
+                            </div>
+
+                            <p>
+                            <div class="col-lg-4"></div>
+                            <input class="btn col-md-8 btn-primary" type="submit" name="add" value="Add" />
+                            </p>
+                        </form>
+                    </div>
                 </div>
-            </form>
+
+            </div>
+
 
 
         </div>
 
-        <div class="modal fade bs-example-modal-lg" id="mediaModel" tabindex="-1" role="dialog"
-            aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="panel">
-                        <div class="panel-body">
 
-                            <div class="mediafiles" id="mediaContents">
-                                <form>
-                                    <input class="pull-left" id="file_upload" name="file_upload" type="file"
-                                        multiple="true" />
 
-                                </form>
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <div class="panel-heading">
-                                            <label class="panel-title">Media Files</label>
-                                        </div>
-                                        <div id="mediafiles">
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </div>
 
 @endsection     
 

@@ -59,7 +59,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-plus-square"></i> Generate Receipt      
+                    <h1 class="page-header"><i class="fa fa-plus-square"></i> Edit Receipt      
                     </h1>
                 </div>
             </div>
@@ -68,12 +68,12 @@
 
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-plus-circle fa-fw"></i> Add Products
+                            <i class="fa fa-plus-circle fa-fw"></i> Edit details
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
 
-                            <form id="form" action="" method="post" enctype="multipart/form-data"
+                            <form id="form" action="{{route('update_receipt', ['id' => $id, 'user_type' => $user_type])}}" method="post" enctype="multipart/form-data"
                                 class="form-horizontal">
                                 @csrf
                                 <div class="col-lg-12" id="row_container">
@@ -86,7 +86,7 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <input class="text-input form-control" type="text" name="cylinder_rate"
-                                                value="" autocomplete="off" id="cylinder_rate" placeholder="SUM" />
+                                                value="{{ isset($otherItem[0])? $otherItem[0]->rate : '' }}" autocomplete="off" id="cylinder_rate" placeholder="SUM" />
 
                                         </div>
                                         <div class="col-lg-2">
@@ -95,56 +95,10 @@
                                         <div class="col-lg-1" style="width: 95px;">
                                             <select name="cylinder_pice" id="cylinder_pice"
                                                 class="cylinder_pice form-control">
-                                                <option value='1'>1</option>
-                                                <option value='2'>2</option>
-                                                <option value='3'>3</option>
-                                                <option value='4'>4</option>
-                                                <option value='5'>5</option>
-                                                <option value='6'>6</option>
-                                                <option value='7'>7</option>
-                                                <option value='8'>8</option>
-                                                <option value='9'>9</option>
-                                                <option value='10'>10</option>
-                                                <option value='11'>11</option>
-                                                <option value='12'>12</option>
-                                                <option value='13'>13</option>
-                                                <option value='14'>14</option>
-                                                <option value='15'>15</option>
-                                                <option value='16'>16</option>
-                                                <option value='17'>17</option>
-                                                <option value='18'>18</option>
-                                                <option value='19'>19</option>
-                                                <option value='20'>20</option>
-                                                <option value='21'>21</option>
-                                                <option value='22'>22</option>
-                                                <option value='23'>23</option>
-                                                <option value='24'>24</option>
-                                                <option value='25'>25</option>
-                                                <option value='26'>26</option>
-                                                <option value='27'>27</option>
-                                                <option value='28'>28</option>
-                                                <option value='29'>29</option>
-                                                <option value='30'>30</option>
-                                                <option value='31'>31</option>
-                                                <option value='32'>32</option>
-                                                <option value='33'>33</option>
-                                                <option value='34'>34</option>
-                                                <option value='35'>35</option>
-                                                <option value='36'>36</option>
-                                                <option value='37'>37</option>
-                                                <option value='38'>38</option>
-                                                <option value='39'>39</option>
-                                                <option value='40'>40</option>
-                                                <option value='41'>41</option>
-                                                <option value='42'>42</option>
-                                                <option value='43'>43</option>
-                                                <option value='44'>44</option>
-                                                <option value='45'>45</option>
-                                                <option value='46'>46</option>
-                                                <option value='47'>47</option>
-                                                <option value='48'>48</option>
-                                                <option value='49'>49</option>
-                                                <option value='50'>50</option>
+                                                 
+                                                    @for ($i = 1; $i <= 50; $i++)
+                                                        <option value="{{ $i }}"{{isset($otherItem[0]) && ($otherItem[0]->pro_qty == $i) ? ' selected' : '' }}>{{ $i }}</option>
+                                                    @endfor            
                                             </select>
                                         </div>
                                     </div>
@@ -158,7 +112,7 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <input class="text-input form-control" type="text" name="regulator_rate"
-                                                value="" autocomplete="off" id="regulator_rate" placeholder="SUM" />
+                                                value="{{ isset($otherItem[1])?$otherItem[1]->rate:''}}" autocomplete="off" id="regulator_rate" placeholder="SUM" />
 
                                         </div>
                                         <div class="col-lg-2">
@@ -166,71 +120,14 @@
                                         </div>
                                         <div class="col-lg-1" style="width: 95px;">
                                             <select name="regulator_pice" id="regulator_pice" class="form-control">
-                                                <option value='1'>1</option>
-                                                <option value='2'>2</option>
-                                                <option value='3'>3</option>
-                                                <option value='4'>4</option>
-                                                <option value='5'>5</option>
-                                                <option value='6'>6</option>
-                                                <option value='7'>7</option>
-                                                <option value='8'>8</option>
-                                                <option value='9'>9</option>
-                                                <option value='10'>10</option>
-                                                <option value='11'>11</option>
-                                                <option value='12'>12</option>
-                                                <option value='13'>13</option>
-                                                <option value='14'>14</option>
-                                                <option value='15'>15</option>
-                                                <option value='16'>16</option>
-                                                <option value='17'>17</option>
-                                                <option value='18'>18</option>
-                                                <option value='19'>19</option>
-                                                <option value='20'>20</option>
-                                                <option value='21'>21</option>
-                                                <option value='22'>22</option>
-                                                <option value='23'>23</option>
-                                                <option value='24'>24</option>
-                                                <option value='25'>25</option>
-                                                <option value='26'>26</option>
-                                                <option value='27'>27</option>
-                                                <option value='28'>28</option>
-                                                <option value='29'>29</option>
-                                                <option value='30'>30</option>
-                                                <option value='31'>31</option>
-                                                <option value='32'>32</option>
-                                                <option value='33'>33</option>
-                                                <option value='34'>34</option>
-                                                <option value='35'>35</option>
-                                                <option value='36'>36</option>
-                                                <option value='37'>37</option>
-                                                <option value='38'>38</option>
-                                                <option value='39'>39</option>
-                                                <option value='40'>40</option>
-                                                <option value='41'>41</option>
-                                                <option value='42'>42</option>
-                                                <option value='43'>43</option>
-                                                <option value='44'>44</option>
-                                                <option value='45'>45</option>
-                                                <option value='46'>46</option>
-                                                <option value='47'>47</option>
-                                                <option value='48'>48</option>
-                                                <option value='49'>49</option>
-                                                <option value='50'>50</option>
+                                                @for ($i = 1; $i <= 50; $i++)
+                                                    <option value="{{ $i }}"{{isset($otherItem[1]) && ($otherItem[1]->pro_qty == $i) ? ' selected' : '' }}>{{ $i }}</option>
+                                                @endfor  
                                             </select>
                                         </div>
                                     </div>
 
-                                    <div class="form-group row_con_mrg">
-                                        <div class="col-lg-6">
-                                            <label>Select User Type</label>
-                                            <select class="text-input form-control" name="user_type" id="user_type">
-                                                <option value="">Select User Type</option>
-                                                <option value="General">General</option>
-                                                <option value="Registered">Registered</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
+                                    
 
                                     <div class="form-group row_con_mrg" id="rowCount0">
                                         <h4><b>Product Details</b></h4>
@@ -261,13 +158,21 @@
                                                             $count =1;
                                                         @endphp
                                                         @foreach ($products as $product)
-
                                                             <tr class="odd gradeX">
-                                                                <td>
-                                                                    <input type='checkbox' name='pro_name[]'
-                                                                        class='contact_check roles' id="product-{{$count}}"
-                                                                        value='{{$product->id}}'> {{$product->title}}
-                                                                </td>
+                                                                @if (isPresent($product->id,$orderItem))
+                                                                    <td>
+                                                                        <input type='checkbox' checked name='pro_name[]'
+                                                                            class='contact_check roles' id="product-{{$count}}"
+                                                                            value='{{$product->id}}'> {{$product->title}}
+                                                                    </td>
+                                                                @else
+                                                                    <td>
+                                                                        <input type='checkbox' name='pro_name[]'
+                                                                            class='contact_check roles' id="product-{{$count}}"
+                                                                            value='{{$product->id}}'> {{$product->title}}
+                                                                    </td>
+                                                                @endif
+                                                                
 
                                                                 <td>
                                                                     <label id="price_lb-{{$count}}">{{$product->price}}</label>
@@ -291,7 +196,8 @@
 
                                                                 <td>
                                                                 
-                                                                    <select name="{{$product->id}}" class="total_pices total_pices-{{$product->id}}" id="total_pices-{{$count}}">
+                                                                    <select name="{{$product->id}}" class="total_pices total_pices-{{$product->id}}"
+                                                                        id="total_pices-{{$count}}">
                                                                         <option value='1'>1</option>
                                                                         <option value='2'>2</option>
                                                                         <option value='3'>3</option>
@@ -495,12 +401,11 @@
 
                                                                     </select>
                                                                 </td>
-                                                            </tr> 
+                                                            </tr>
                                                             @php
                                                                 $count++;
-                                                            @endphp       
+                                                            @endphp        
                                                         @endforeach
-                                                        
 
                                                 </table>
                                             </div>
@@ -510,7 +415,7 @@
                                             <div class="col-lg-4">
                                                 <label>Discount</label>
                                                 <input class="text-input form-control" type="text" name="discount"
-                                                    value="" autocomplete="off" id="discount" placeholder="Discount" />
+                                                    value="{{ $order->discount}}" autocomplete="off" id="discount" placeholder="Discount" />
                                             </div>
                                         </div>
 
@@ -532,11 +437,11 @@
                                         <h5>Billing Address</h5>
                                         <div class="col-lg-6">
                                             <input class="text-input form-control" type="text" name="billing_name"
-                                                value="" autocomplete="off" id="billing_name" placeholder="Name" />
+                                                value="{{$billingAddress->name}}" autocomplete="off" id="billing_name" placeholder="Name" />
                                         </div>
                                         <div class="col-lg-6">
                                             <input class="text-input form-control" type="text" name="billing_number"
-                                                value="" autocomplete="off" id="billing_number"
+                                                value="{{$billingAddress->number}}" autocomplete="off" id="billing_number"
                                                 placeholder="Mobile Number" />
 
                                         </div>
@@ -547,7 +452,7 @@
 
                                         <div class="col-lg-6">
                                             <input class="text-input form-control" type="text" name="billing_address"
-                                                value="" autocomplete="off" id="billing_address"
+                                                value="{{$billingAddress->billing_address}}" autocomplete="off" id="billing_address"
                                                 placeholder="Address" />
                                         </div>
                                         <div class="col-lg-6">
@@ -573,18 +478,12 @@
                                     <h4><b>Invoice Detail</b></h4>
 
                                     <div class="form-group row_con_mrg">
-                                        <div class="col-lg-6">
-                                            <label>Invoice Date </label>
-                                            <input class="text-input form-control datepicker" type="text"
-                                                name="invoice_date" value="" autocomplete="off" id="invoice_date"
-                                                placeholder="Invoice Date" />
-                                            <input type="hidden" name="hdninvoice_date" id="hdninvoice_date" value="">
-                                        </div>
-                                        <div class="col-lg-6">
+                                        
+                                        <div class="col-lg-12">
                                             <label>Reverse Charge </label>
                                             <select class="text-input form-control" name="r_charge" id="r_charge">
-                                                <option value="No">No</option>
-                                                <option value="Yes">Yes</option>
+                                                <option value="No" {{($basicDetail->reverse_charge=='No')?'selected':''}} >No</option>
+                                                <option value="Yes"  {{($basicDetail->reverse_charge=='Yes')?'selected':''}} >Yes</option>
                                             </select>
 
                                         </div>
@@ -597,16 +496,16 @@
                                             <label>Connection Type </label>
                                             <select class="text-input form-control" name="con_type" id="con_type">
                                                 <option value="">Select Connection Type</option>
-                                                <option value="NC">NC</option>
-                                                <option value="DBC">DBC</option>
-                                                <option value="Incoming TV">Incoming TV</option>
-                                                <option value="NC-DBC">NC-DBC</option>
-                                                <option value="Other">Other</option>
+                                                <option value="NC"  {{($basicDetail->content_type=='NC')?'selected':''}} >NC</option>
+                                                <option value="DBC" {{($basicDetail->content_type=='DBC')?'selected':''}} >DBC</option>
+                                                <option value="Incoming TV" {{($basicDetail->content_type=='Incoming TV')?'selected':''}} >Incoming TV</option>
+                                                <option value="NC-DBC" {{($basicDetail->content_type=='NC-DBC')?'selected':''}} >NC-DBC</option>
+                                                <option value="Other" {{($basicDetail->content_type=='Other')?'selected':''}} >Other</option>
                                             </select>
                                         </div>
                                         <div class="col-lg-6">
                                             <label>SV Number </label>
-                                            <input class="text-input form-control" type="text" name="sv_numver" value=""
+                                            <input class="text-input form-control" type="text" name="sv_numver" value="{{ $basicDetail->sv_number}}"
                                                 autocomplete="off" id="sv_numver" placeholder="SV Number" />
                                         </div>
 
@@ -616,13 +515,13 @@
                                         <div class="col-lg-6">
                                             <label>Consumer Number </label>
                                             <input class="text-input form-control" type="text" name="consumer_number"
-                                                value="" autocomplete="off" id="consumer_number"
+                                                value="{{ $basicDetail->consumer_number}}" autocomplete="off" id="consumer_number"
                                                 placeholder="Consumer Number" />
                                         </div>
                                         <div class="col-lg-6">
                                             <label>Cust. GST Number </label>
                                             <input class="text-input form-control" type="text" name="gst_number"
-                                                value="" autocomplete="off" id="gst_number"
+                                                value="{{ $basicDetail->user_gst}}" autocomplete="off" id="gst_number"
                                                 placeholder="Cust. GST Number" />
                                         </div>
 
@@ -633,22 +532,22 @@
                                             <label for="text1" class="control-label col-lg-12"
                                                 style="text-align: left;">Mode of payment</label>
                                             <input class="mode_control" type="radio" name="mode" value="cash"
-                                                style="width: 40px; height: 1.2em;">Cash
+                                                style="width: 40px; height: 1.2em;" {{($basicDetail->payment_mode == 'cash')?'checked':''}}>Cash
 
                                             <input class="mode_control" type="radio" name="mode" id="bank_link"
-                                                value="Bank" style="margin-left:15px; width: 40px; height: 1.2em;">Bank
+                                                value="Bank" style="margin-left:15px; width: 40px; height: 1.2em;" {{($basicDetail->payment_mode == 'Bank')?'checked':''}}>Bank
 
                                             <input class="mode_control" type="radio" name="mode" id="both_link"
-                                                value="Both" style="margin-left:15px; width: 40px; height: 1.2em;">Both
+                                                value="Both" style="margin-left:15px; width: 40px; height: 1.2em;" {{($basicDetail->payment_mode == 'Both')?'checked':''}}>Both
 
                                             <input class="mode_control" type="radio" name="mode" id="" value="Credit"
-                                                style="margin-left:15px; width: 40px; height: 1.2em;">Credit
+                                                style="margin-left:15px; width: 40px; height: 1.2em;" {{($basicDetail->payment_mode == 'Credit')?'checked':''}}>Credit
 
 
                                         </div>
                                         <div class="col-lg-6">
                                             <label>Remark </label>
-                                            <textarea class="form-control col-lg-12" name="remark_text"></textarea>
+                                            <textarea class="form-control col-lg-12" name="remark_text">{{ $order->order_remark }}</textarea>
                                         </div>
                                     </div>
                                     <div class="form-group amount_block" style="display:none;">
@@ -660,13 +559,13 @@
                                             <label>Cash Amount </label>
                                             <input type="hidden" name="total_amount" id="total_amount" value="">
                                             <input class="text-input form-control" type="text" name="cash_amount"
-                                                value="" autocomplete="off" id="cash_amount"
+                                                value="{{ $basicDetail->cash_amount}}" autocomplete="off" id="cash_amount"
                                                 placeholder="Cash Amount" />
                                         </div>
                                         <div class="col-lg-6">
                                             <label>Bank Amount </label>
                                             <input class="text-input form-control" type="text" name="bank_amount"
-                                                value="" autocomplete="off" id="bank_amount"
+                                                value="{{ $basicDetail->bank_amount}}" autocomplete="off" id="bank_amount"
                                                 placeholder="Bank Amount" />
                                         </div>
 
@@ -678,7 +577,7 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <input class="btn col-md-8 btn-primary" id="final_done" type="submit"
-                                                name="add" value="Done" />
+                                                name="Update" value="Update" />
                                         </div>
 
                                     </div>
@@ -821,13 +720,16 @@
         }); 
     </script>
     <script src="{{asset('public/i-js/jquery-ui.js')}}"></script>
-
     <script>
         $(function () {
+
             $(".datepicker").datepicker({ dateFormat: 'dd-mm-yy' });
+
+
         });
     </script>
     <script>
+
 
         $(function () {
             var clickedOnce = false;
@@ -844,49 +746,54 @@
                     return false;
                 }
                 else {
-                   
+                    
                     var order_amount = 0;
                     var total_product = $('.roles:checkbox:checked').length;
-                    
                     
                     for (i = 1; i <= total_product + 1; i++) {
 
                         if ($('input#product-' + i).is(':checked')) {
                             var amount = $("#total_amount_lb-" + i).html();
+                            //order_amount=parseFloat(order_amount)+parseFloat(amount);
                             order_amount = parseFloat(order_amount) + parseFloat(amount);
-
                         }
 
                     }
-                    
 
+                    
+                    
                     var cylinder_amount = $("#cylinder_rate").val();
+                  
+                   
                     if (cylinder_amount) {
-                        order_amount = parseFloat(order_amount) + parseFloat(cylinder_amount);
+                        var cylinder_pice = $("#cylinder_pice").val();
+                        order_amount = parseFloat(order_amount) + parseFloat(cylinder_amount) * parseFloat(cylinder_pice);
+                       
                     }
                     var regulator_amount = $("#regulator_rate").val();
                     if (regulator_amount) {
-                        order_amount = parseFloat(order_amount) + parseFloat(regulator_amount);
+                        var regulator_pice = $("#regulator_pice").val();
+                        order_amount = parseFloat(order_amount) + parseFloat(regulator_amount) * parseFloat(regulator_pice);
                     }
-
+                    
                     var order_discount = $("#discount").val();
                     if (order_discount) {
                         order_amount = parseFloat(order_amount) - parseFloat(order_discount);
                     }
+                    
 
                     order_amount = Math.round(order_amount);
 
                     $("#order_amounts").html(order_amount);
                     $("#total_amount").val(order_amount);
 
-
+                    
                     $("#row_container").hide();
                     $("#invoice_details_container").hide();
                     $("#userdetails_container").show();
                     document.body.scrollTop = document.documentElement.scrollTop = 0;
 
                 }
-
 
             });
 
@@ -1005,7 +912,20 @@
 
                 }
 
+
             });
+
+            $(document).ready(function() {
+                if ($('.mode_control').is(":checked")) {
+                    var mode = $('input[name=mode]:checked').val();
+                    if (mode == "Both") {
+                        $(".amount_block").show();
+                    } else {
+                        $(".amount_block").hide();
+                    }
+                }
+            });
+
 
 
             $("#invoice_date").change(function () {
@@ -1051,8 +971,9 @@
 
 
             $(".total_pices").change(function () {
-
+                
                 var id_of_gm_qty = $(this).attr("id");
+                console.log(id_of_gm_qty);
                 var pices = $("#" + id_of_gm_qty).val();
                 var get_id = id_of_gm_qty.split('-');
                 var count = get_id[1];
@@ -1061,10 +982,10 @@
                 if (product_id != "") {
                     var data = 'pro_id=' + product_id + '&pcs=' + pices;
                     $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                    });
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+                });
                     $.ajax({
                         url:`{!! route('calculate_amount') !!}`,
                         type: "POST",
@@ -1103,11 +1024,12 @@
 
             $("#cylinder_pice").change(function () {
                 var product_to_change = 1;
+                //var change=$("#total_pices-1").val();
                 var change = $(".total_pices-1").val();
-                var qty = $("#cylinder_pice").val();         
+                var qty = $("#cylinder_pice").val();
+                //$("#total_pices-1").val(qty).change();	
                 $(".total_pices-1").val(qty).change();
             });
-
 
             $.ajaxSetup({
             headers: {
@@ -1148,5 +1070,7 @@
         });
 
     </script>
+
+    <script>console.log(order_amount);</script>
 
 @endpush

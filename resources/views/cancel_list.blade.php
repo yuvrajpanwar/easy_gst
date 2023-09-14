@@ -2,7 +2,7 @@
 
 @section('title')
 
-    Receipt List
+    Cancel Receipt List
     
 @endsection
 
@@ -22,7 +22,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header"><i class="fa fa-list-alt"></i> Receipt List <div class="action pull-right">
+                <h1 class="page-header"><i class="fa fa-list-alt"></i>Cancel Receipt List <div class="action pull-right">
                         <!--<a href="index.php?component=consignment&action=add" class="btn btn-primary"><i class="fa fa-plus"></i> Add New</a>-->
                     </div>
                 </h1>
@@ -45,7 +45,7 @@
 
                 <div class="dataTable_wrapper">
                     <div class="col-lg-12" style="margin-bottom: 25px;">
-                        <form action="{{route('search_by_date')}}" method="post" enctype="multipart/form-data">
+                        <form action="{{route('search_cancel_receipts')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="col-lg-2">
                                 
@@ -108,15 +108,7 @@
                                         <td class="center">
                                                  <a href="{{ route('view_receipt', ['user_type' => $user_type, 'id' => $details->id]) }}"
                                                 class="btn btn-primary" target="_blank" title="Details">View</a>
-                                            <a class="btn btn-primary"
-                                                href="{{ route('edit_receipt', ['user_type' => $user_type, 'id' => $details->id]) }}"
-                                                class="btn btn-sm" title="Edit">Edit</a>
-                                            <a class="btn btn-primary"
-                                                href="{{ route('receipt_pdf', ['user_type' => $user_type, 'id' => $details->id]) }}"
-                                                class="btn btn-sm" title="Edit">Pdf</a>
-                                            <a onclick="return confirm('Confirm to Cancel Order?')"
-                                                href="{{route('cancel_receipt',['user_type'=>$user_type,'id'=>$details->id])}}"
-                                                class="btn btn-primary" title="Delete">Cancel</a>
+                                           
                                         </td>
                                        
                                     </form>
@@ -180,10 +172,10 @@
             var to_date = $("#to_date").val();
             if (start_date == "" && to_date == "") {
                 if (date_val == "General") {
-                    window.location.replace(`{{ route('receipt_list', ['user_type' => 'General']) }}`);
+                    window.location.replace(`{{ route('cancel_list', ['user_type' => 'General']) }}`);
                 }
                 if (date_val == "Registered") {
-                    window.location.replace(`{{ route('receipt_list', ['user_type' => 'Registered']) }}`);
+                    window.location.replace(`{{ route('cancel_list', ['user_type' => 'Registered']) }}`);
                 }
 
             

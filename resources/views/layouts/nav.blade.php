@@ -23,10 +23,10 @@
             </a>
             <ul class="dropdown-menu dropdown-user">
 
-                <li><a href="index.php?component=address&action=edit"><i class="fa fa-users fa-fw"></i> Manage
+                <li><a href="{{ route('edit_company_details') }}"><i class="fa fa-users fa-fw"></i> Manage
                         Billing Address</a></li>
 
-                <li><a href="index.php?component=user&action=changepassword"><i class="fa fa-lock fa-fw"></i>
+                <li><a href=""><i class="fa fa-lock fa-fw"></i>
                         Change Password</a></li>
                 <li>
                     <a href="{{ route('logout') }}"
@@ -54,7 +54,7 @@
 
                 <li class="">
                     <a href="#"><!--<i class="glyphicon glyphicon-book"></i>--><i class="fa fa-product-hunt"
-                            aria-hidden="true"></i> Products<span class="label label-important">5</span><span
+                            aria-hidden="true"></i> Products<span class="label label-important">{{totalProducts()}}</span><span
                             class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li style="border-top:1px solid white !important;">
@@ -77,11 +77,11 @@
                                 Add New</a>
                         </li>
                         <li style="border-top:1px solid white !important;">
-                            <a href="index.php?component=add_order&action=list"><i class="fa fa-list-alt"></i>
+                            <a href="{{route('receipt_list')}}"><i class="fa fa-list-alt"></i>
                                 List</a>
                         </li>
                         <li style="border-top:1px solid white !important;">
-                            <a href="index.php?component=add_order&action=cancel_list"><i
+                            <a href="{{route('cancel_list')}}"><i
                                     class="fa fa-list-alt"></i> Cancel List</a>
                         </li>
                     </ul>
@@ -94,15 +94,15 @@
                     <ul class="nav nav-second-level">
 
                         <li style="border-top:1px solid white !important;">
-                            <a href="index.php?component=stock&action=add"><i class="fa fa-plus-square"></i> Add
+                            <a href=""><i class="fa fa-plus-square"></i> Add
                                 New</a>
                         </li>
                         <li style="border-top:1px solid white !important;">
-                            <a href="index.php?component=stock&action=list"><i class="fa fa-list-alt"></i>
+                            <a href=""><i class="fa fa-list-alt"></i>
                                 Availablle Stock</a>
                         </li>
                         <li style="border-top:1px solid white !important;">
-                            <a href="index.php?component=stock&action=stock_reports"><i
+                            <a href=""><i
                                     class="fa fa-list-alt"></i> Purchased Stock</a>
                         </li>
                     </ul>
@@ -114,11 +114,11 @@
                             class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li style="border-top:1px solid white !important;">
-                            <a href="index.php?component=reports&action=sale_report"><i
+                            <a href=""><i
                                     class="fa fa-list-alt"></i> Sale Report</a>
                         </li>
                         <li style="border-top:1px solid white !important;">
-                            <a href="index.php?component=reports&action=list"><i class="fa fa-list-alt"></i>
+                            <a href=""><i class="fa fa-list-alt"></i>
                                 General Report</a>
                         </li>
                     </ul>

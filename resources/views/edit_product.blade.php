@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Add Product
+    Edit Product
 @endsection
 
   
@@ -23,7 +23,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-plus-square"></i> Add Product
+                    <h1 class="page-header"><i class="fa fa-plus-square"></i> Edit Product Details
                         <div class="action pull-right">
                             <a href="{{ route('product_list') }}" class="btn btn-primary btn-small"><i
                                     class="fa fa-list"></i> List </a>
@@ -31,7 +31,7 @@
                     </h1>
                 </div>
             </div>
-            <form id="form" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <form id="form" action="{{route('update_product',['id'=>$product->id])}}" method="post" enctype="multipart/form-data" class="form-horizontal">
                 @csrf
 
                 <div class="row">
@@ -50,13 +50,13 @@
                                     <div class="col-md-8">
                                         <label>Product Name *</label>
                                         <input class="text-input form-control product_name" name="title" id="txttitle"
-                                            type="text" /> (Ex. ABC )
+                                            type="text" value="{{$product->title}}"/> (Ex. ABC )
                                     </div>
                                     <div class="col-md-4">
                                         <label>HSN Code *</label>
 
                                         <Input type="text" id="hsn_code" class="text-input form-control"
-                                            name="hsn_code">
+                                            name="hsn_code" value="{{$product->hsn_code}}">
                                     </div>
 
                                 </div>
@@ -64,7 +64,7 @@
                                 <div class="form-group">
                                     <div class="col-lg-12">
                                         <label>Details</label>
-                                        <textarea id="elm12" class="text-input form-control" name="content"></textarea>
+                                        <textarea id="elm12" class="text-input form-control" name="content" >{{$product->description}}</textarea>
                                     </div>
                                 </div>
 
@@ -73,7 +73,7 @@
                                     <div class="col-lg-3">
                                         <label>Price</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="price" id="price" />
+                                            <input type="text" class="form-control" name="price" id="price" value="{{$product->price}}"/>
                                             <span class="input-group-addon">INR</span>
                                         </div>
                                     </div>
@@ -81,7 +81,7 @@
                                         <label>Discount</label>
                                         <div class="input-group">
 
-                                            <input type="text" class="form-control" name="discount" id="discount" />
+                                            <input type="text" class="form-control" name="discount" id="discount" value="{{$product->discount}}"/>
                                             <span class="input-group-addon">INR</span>
                                         </div>
                                     </div>
@@ -89,7 +89,7 @@
                                         <label>CGST</label>
                                         <div class="input-group">
 
-                                            <input type="text" class="form-control" name="cgst_tax" id="cgst_tax" />
+                                            <input type="text" class="form-control" name="cgst_tax" id="cgst_tax" value="{{$product->cgst_tax}}"/>
                                             <span class="input-group-addon">%</span>
                                         </div>
                                     </div>
@@ -97,7 +97,7 @@
                                         <label>SGST</label>
                                         <div class="input-group">
 
-                                            <input type="text" class="form-control" name="sgst_tax" id="sgst_tax" />
+                                            <input type="text" class="form-control" name="sgst_tax" id="sgst_tax" value="{{$product->sgst_tax}}"/>
                                             <span class="input-group-addon">%</span>
                                         </div>
                                     </div>
