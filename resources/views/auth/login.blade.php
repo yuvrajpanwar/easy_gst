@@ -1,5 +1,4 @@
-<div style='background-color:red;text-align:center;'> <br /><br />This license is going to expire on
-    <strong>2023-09-30</strong>, Please contact service provider to continue using the software.</div>
+
 <!DOCTYPE HTML>
 
 <head>
@@ -44,7 +43,7 @@
 </head>
 
 <body>
-    <div id="top"></div>
+
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -57,6 +56,16 @@
     <section id="home">
         <div class="container" style="height:550px; margin-top:-60px;">
             <div class="row">
+
+
+                @if (warning()) 
+
+                    <div style='background-color:red;text-align:center;color:white;'> <br /><br />This license is going to expire on
+                        <strong>2023-09-30</strong>, Please contact service provider to continue using the software.
+                    </div>
+                
+                @endif
+
                 <div class="col-lg-12 col-md-12">
                     <div class="modal-dialog modal-sm">
                         <img src="{{ asset('public/themes/admin/images/logo.gif')}}" style="width:400px; height:100px;">
