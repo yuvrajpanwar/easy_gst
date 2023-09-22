@@ -85,7 +85,7 @@
                                             <span class="input-group-addon">INR</span>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    {{-- <div class="col-lg-3">
                                         <label>CGST</label>
                                         <div class="input-group">
 
@@ -100,7 +100,26 @@
                                             <input type="text" class="form-control" name="sgst_tax" id="sgst_tax" />
                                             <span class="input-group-addon">%</span>
                                         </div>
+                                    </div> --}}
+                                    <div class="col-lg-3">
+                                        <label>CGST</label>
+                                        <div class="input-group">
+                                            <select class="form-control" name="cgst_tax" id="cgst_tax">
+                                                <option value="2.5">2.5%</option>
+                                                <option value="9">9%</option>
+                                            </select>
+                                        </div>
                                     </div>
+                                    <div class="col-lg-3">
+                                        <label>SGST</label>
+                                        <div class="input-group">
+                                            <select class="form-control" name="sgst_tax" id="sgst_tax">
+                                                <option value="2.5">2.5%</option>
+                                                <option value="9">9%</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
 
                                 </div>
 
@@ -132,7 +151,6 @@
                                 <form>
                                     <input class="pull-left" id="file_upload" name="file_upload" type="file"
                                         multiple="true" />
-
                                 </form>
                                 <div class="panel panel-default">
                                     <div class="panel-body">
@@ -289,6 +307,24 @@
             });
         });
     </script>
+
+
+    <script>
+        
+        var cgstSelect = document.getElementById('cgst_tax');
+        var sgstSelect = document.getElementById('sgst_tax');
+
+        cgstSelect.addEventListener('change', function () {
+            // Set the value of the SGST select element to match CGST
+            sgstSelect.value = this.value;
+        });
+
+        sgstSelect.addEventListener('change', function () {
+            cgstSelect.value = this.value;
+        });
+        
+    </script>
+
 
     
 @endpush

@@ -2,29 +2,49 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\ResetsPasswords;
+
 
 class ResetPasswordController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Password Reset Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller is responsible for handling password reset requests
-    | and uses a simple trait to include this behavior. You're free to
-    | explore this trait and override any methods you wish to tweak.
-    |
-    */
 
-    use ResetsPasswords;
+    public function change_password()
+    {
+        return view('auth.passwords.change_password');
+    }
 
-    /**
-     * Where to redirect users after resetting their password.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    public function update_password(Request $request)
+    {
+        $request->validate([
+            'oldpassword'=>'required',
+            'newpassword'=>'required|min:5'
+        ], [
+            'oldpassword.required' => 'This field is required.',
+            'newpassword.required' => 'This field is required.',
+            'newpassword.min' => 'The new password must be at least 5 characters.'
+            
+        ]);
+
+        $user = Auth::user();
+        $old_password = $user->password;
+        $new_password = Hash::make($request->newpassword);
+
+        if (Hash::check($request->oldpassword, $old_password)) {
+            $user->password = $new_password;
+            $user->save();
+            return redirect()->back()->with('success','Password is changed successfully !');
+           
+        } else {
+            return redirect()->back()->with('error','Old password did not match !');
+           
+        }
+        
+
+        
+    }
+
 }

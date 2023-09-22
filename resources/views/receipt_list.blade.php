@@ -23,7 +23,6 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header"><i class="fa fa-list-alt"></i> Receipt List <div class="action pull-right">
-                        <!--<a href="index.php?component=consignment&action=add" class="btn btn-primary"><i class="fa fa-plus"></i> Add New</a>-->
                     </div>
                 </h1>
             </div>
@@ -100,7 +99,7 @@
                                         <td>{{$details->name}}</td>
                                         <td>{{$details->totalitem}}</td>
                                         <td>{{$details->discount}}</td>
-                                        <td>{{$details->totalprice}}</td>
+                                        <td>{{$details->totalprice - $details->discount}}</td>
                                         <td>{{$details->payment_mode}}</td>
                                         <td>{{$details->invice_date}}</td>
                                         <td style="width:200px;">{{$details->order_remark}}</td>
@@ -141,17 +140,6 @@
 @push('js')
       
   
-    <!-- Core Scripts - Include with every page -->
-    <script src="{{ asset('public/themes/admin/js/jquery-1.10.2.js') }}"></script>
-    <script src="{{ asset('public/themes/admin/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('public/themes/admin/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
-    <script src="{{ asset('public/themes/admin/js/865ee126eb.js') }}"></script>
-    <!-- Page-Level Plugin Scripts - Tables -->
-    <script src="{{ asset('public/themes/admin/js/plugins/dataTables/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('public/themes/admin/js/plugins/dataTables/dataTables.bootstrap.js') }}"></script>
-    <!-- SB Admin Scripts - Include with every page -->
-    <script src="{{ asset('public/themes/admin/js/sb-admin.js') }}"></script>
-
     <script>
         $(document).ready(function () {
             $('#dataTables-example').dataTable({
@@ -161,13 +149,12 @@
         });
     </script>
 
-<script src="{{ asset('public/i-js/jquery-ui.js') }}"></script>
-<script>
+    <script>
     $(function () {
         $(".datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
     });
-</script>
-<script>
+    </script>
+    <script>
 
     $(function () {
 

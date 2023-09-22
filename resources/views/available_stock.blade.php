@@ -2,7 +2,7 @@
 
 @section('title')
 
-    Product List
+    Available Stock
     
 @endsection
 
@@ -27,8 +27,8 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-list-alt"></i> Product List <div class="action pull-right">
-                            <a href="{{ route('add_product') }}" class="btn btn-primary"><i
+                    <h1 class="page-header"><i class="fa fa-list-alt"></i> Available Stock <div class="action pull-right">
+                            <a href="{{ route('add_stock') }}" class="btn btn-primary"><i
                                     class="fa fa-plus"></i> Add New</a>
                         </div>
                     </h1>
@@ -54,31 +54,18 @@
 
                                 <tr>
                                     
-                                    <th>Title</th>
-                                    <th>HSN Code</th>
-                                    <th>Price</th>
-                                    <th>CGST %</th>
-                                    <th>SGST %</th>
-                                    <th>Option</th>
+                                    <th>Product Name</th>
+                                    <th>Available Stock</th>
+
                                 </tr>
 
                             </thead>
                             <tbody>
-                                @foreach ($products as $product)
+                                @foreach ($stock as $data)
                                     <tr class="odd gradeX">  
 
-                                            <td>{{$product->title}}</td>                                      
-                                            <td>{{$product->hsn_code}}</td>
-                                            <td>{{$product->price}}</td>
-                                            <td>{{$product->cgst_tax}}</td>
-                                            <td>{{$product->sgst_tax}}</td>
-                                            <td class="center">
-                                                <a href="{{route('edit_product',['id'=>$product->id])}}" class="btn btn-sm"
-                                                    title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
-                                                <a onclick="return confirm('Are you sure Delete?')"
-                                                    href="{{route('delete_product',['id'=>$product->id])}}" class="btn btn-sm"
-                                                    title="Delete"><i class="glyphicon glyphicon-remove"></i></a>
-                                            </td>
+                                            <td> {{$data->title}} </td>                                      
+                                            <td> {{$data->gmqty}} </td>
                                     </tr> 
                                 @endforeach   
 
@@ -97,9 +84,6 @@
    
 @push('js')
     
-
-
-
     <script>
         $(document).ready(function () {
             $('#dataTables-example').dataTable({

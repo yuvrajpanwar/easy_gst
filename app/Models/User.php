@@ -14,6 +14,8 @@ class User extends Authenticatable
 
     protected $table = 'user';
 
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *

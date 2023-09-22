@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PdfGeneratorController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,3 +65,29 @@ Route::post('/search_by_date', [App\Http\Controllers\HomeController::class, 'sea
 Route::get('/cancel_list/{user_type?}', [App\Http\Controllers\HomeController::class, 'cancel_list'])->name('cancel_list');
 
 Route::post('/search_cancel_receipts', [App\Http\Controllers\HomeController::class, 'search_cancel_receipts'])->name('search_cancel_receipts');
+
+Route::get('/add_stock', [App\Http\Controllers\HomeController::class, 'add_stock'])->name('add_stock');
+
+Route::post('/add_stock', [App\Http\Controllers\HomeController::class, 'create_stock'])->name('create_stock');
+
+Route::get('/available_stock', [App\Http\Controllers\HomeController::class, 'available_stock'])->name('available_stock');
+
+Route::get('edit_stock',[App\Http\Controllers\HomeController::class, 'edit_stock'])->name('edit_stock');
+
+Route::post('update_stock/{id}',[App\Http\Controllers\HomeController::class, 'update_stock'])->name('update_stock');
+
+Route::get('purchased_stock',[App\Http\Controllers\HomeController::class, 'purchased_stock'])->name('purchased_stock');
+
+Route::get('change_password',[App\Http\Controllers\Auth\ResetPasswordController::class, 'change_password'])->name('change_password');
+
+Route::post('change_password',[App\Http\Controllers\Auth\ResetPasswordController::class, 'update_password'])->name('update_password');
+
+Route::get('sale_report',[App\Http\Controllers\HomeController::class, 'sale_report'])->name('sale_report');
+
+Route::post('search_sale_report',[App\Http\Controllers\HomeController::class, 'sale_report'])->name('search_sale_report');
+
+Route::post('report_export',[App\Http\Controllers\HomeController::class, 'report_export'])->name('report_export');
+
+Route::get('general_report',[App\Http\Controllers\HomeController::class, 'general_report'])->name('general_report');
+
+Route::get('expired',[App\Http\Controllers\HomeController::class, 'expired'])->name('expired');

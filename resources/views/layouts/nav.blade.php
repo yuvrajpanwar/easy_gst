@@ -26,7 +26,7 @@
                 <li><a href="{{ route('edit_company_details') }}"><i class="fa fa-users fa-fw"></i> Manage
                         Billing Address</a></li>
 
-                <li><a href=""><i class="fa fa-lock fa-fw"></i>
+                <li><a href="{{route('change_password')}}"><i class="fa fa-lock fa-fw"></i>
                         Change Password</a></li>
                 <li>
                     <a href="{{ route('logout') }}"
@@ -94,15 +94,15 @@
                     <ul class="nav nav-second-level">
 
                         <li style="border-top:1px solid white !important;">
-                            <a href=""><i class="fa fa-plus-square"></i> Add
+                            <a href="{{route('add_stock')}}"><i class="fa fa-plus-square"></i> Add
                                 New</a>
                         </li>
                         <li style="border-top:1px solid white !important;">
-                            <a href=""><i class="fa fa-list-alt"></i>
+                            <a href="{{route('available_stock')}}"><i class="fa fa-list-alt"></i>
                                 Availablle Stock</a>
                         </li>
                         <li style="border-top:1px solid white !important;">
-                            <a href=""><i
+                            <a href="{{route('purchased_stock')}}"><i
                                     class="fa fa-list-alt"></i> Purchased Stock</a>
                         </li>
                     </ul>
@@ -114,11 +114,11 @@
                             class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li style="border-top:1px solid white !important;">
-                            <a href=""><i
+                            <a href="{{route('sale_report')}}"><i
                                     class="fa fa-list-alt"></i> Sale Report</a>
                         </li>
                         <li style="border-top:1px solid white !important;">
-                            <a href=""><i class="fa fa-list-alt"></i>
+                            <a href="{{route('general_report')}}"><i class="fa fa-list-alt"></i>
                                 General Report</a>
                         </li>
                     </ul>

@@ -122,18 +122,6 @@
 
 @push('js')
 
-    <!-- Core Scripts - Include with every page -->
-    <script src="{{ asset('public/themes/admin/js/jquery-1.10.2.js') }}"></script>
-    <script src="{{ asset('public/themes/admin/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('public/themes/admin/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
-
-    <script src="{{ asset('public/themes/admin/js/865ee126eb.js') }}"></script>
-    <!-- Page-Level Plugin Scripts - Tables -->
-    <script src="{{ asset('public/themes/admin/js/plugins/dataTables/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('public/themes/admin/js/plugins/dataTables/dataTables.bootstrap.js') }}"></script>
-    <!-- SB Admin Scripts - Include with every page -->
-    <script src="{{ asset('public/themes/admin/js/sb-admin.js') }}"></script>
-
     <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
 
     <script>

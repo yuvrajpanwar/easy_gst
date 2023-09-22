@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 // use Dompdf\Dompdf;
 // use Dompdf\Options;
+use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\Stock;
 use App\Models\Product;
 use App\Models\OrderItem;
+use App\Models\stockDetail;
 use Illuminate\Http\Request;
+use App\Exports\ReportExport;
 use App\Models\CompanyDetail;
 use App\Models\OtherOrderItem;
 use App\Models\OtherBasicDetail;
@@ -16,10 +19,11 @@ use App\Models\RegisterUserOrder;
 use App\Models\UserBillingAddress;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\RegisterUserOrderItem;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\RegisterBillingAddress;
-
 use App\Models\RegisterOtherOrderItem;
 use App\Models\RegisterOtherBasicDetail;
 
@@ -38,7 +42,9 @@ class HomeController extends Controller
 
     public function __construct()
     {
+        $this->middleware('LicenseCheckMiddleware');
         $this->middleware('auth');
+  
     }
 
     /**
@@ -54,6 +60,11 @@ class HomeController extends Controller
         ->where('status','1')->get();
         
         return view('home', ['products' => $products]);
+    }
+
+    public function expired()
+    {
+        return view('expired');
     }
 
     public function edit_company_details()
@@ -1287,6 +1298,289 @@ class HomeController extends Controller
         }
         return view('cancel_list',['data'=>$data,'user_type'=>$user_type]);
         
+    }
+
+    public function add_stock()
+    {
+        $loggedInUserId = Auth::user()->id;
+        $products = Product::where('admin_id', $loggedInUserId)
+        ->where('status','1')->get();
+        return view('add_stock' ,['products' => $products]);
+    }
+
+    protected function create_stock( Request $request)
+    {
+        $id = $request->prid;
+        
+        $current_time = Carbon::now();
+        $current_time = $current_time->toDateTimeString();
+        
+        $data_for_stock = [
+            "admin_id" => Auth::user()->id,
+            "product_id" => $this->get_control_value('prid',$request),
+            "gmqty" =>  $this->get_control_value('gmqty',$request),
+            "unit" => $this->get_control_value('unit',$request),
+            "base_qty" =>  $this->get_control_value('base_qty',$request),
+            "date" => $current_time,
+
+        ];
+        $data_for_stock_details = [
+            "admin_id" => Auth::user()->id,
+            "product_id" => $this->get_control_value('prid',$request),
+            "gmqty" =>  $this->get_control_value('gmqty',$request),
+            "unit" => $this->get_control_value('unit',$request),
+            "invoice_number" =>  $this->get_control_value('in_number',$request),
+            "vendor_name" => $this->get_control_value('name',$request),
+            "invoice_date" =>  $this->get_control_value('invoice_date',$request),
+            "date" => $current_time,
+        ]; 
+
+        $stock = Stock::where('product_id',$id)->first();
+        if($stock)
+        {
+            $data_for_stock['gmqty'] += $stock['gmqty'] ;
+        }
+
+        $invoice = stockDetail::where('invoice_number',$request->in_number)->first();
+        if($invoice)
+        {
+            return redirect(route('add_stock'))->with(['error'=>'invoice number already exists']);
+        }
+
+        Stock::updateOrCreate(['product_id' => $id], $data_for_stock);
+        stockDetail::Create($data_for_stock_details);
+
+        return redirect(route('purchased_stock'))->with([
+            'success' => ' Stock has been added successfully.'
+        ]);
+
+    }
+
+    public function available_stock()
+    {
+        $stock = DB::table('stock')
+        ->join('products', 'stock.product_id', '=', 'products.id')
+        ->select('stock.gmqty', 'products.title')
+        ->get();
+        return view('available_stock',['stock'=>$stock]);
+    }
+
+    public function purchased_stock()
+    {
+        $stock = DB::table('stock_details')
+        ->join('products', 'stock_details.product_id', '=', 'products.id')
+        ->select('stock_details.id','stock_details.invoice_date','stock_details.invoice_number','stock_details.vendor_name','products.title','stock_details.gmqty')
+        ->orderByDesc('stock_details.invoice_date')
+        ->get();
+        return view('purchased_stock',['stock'=>$stock]);
+    }
+
+    public function edit_stock(Request $request)
+    {
+        $id = $request->id;
+        $stock = stockDetail::where('id',$id)->first();
+
+        $loggedInUserId = Auth::user()->id;
+        $products = Product::where('admin_id', $loggedInUserId)
+        ->where('status','1')->get();
+
+       
+
+        if(!$stock)
+        {
+            return redirect(route('purchased_stock'))->with(['error' => ' stock not found. ']);
+        }
+
+        return view('edit_stock',['stock'=>$stock,'products'=>$products]);
+    }
+
+    public function update_stock(Request $request)
+    {
+        $id = $request->id;
+        $current_time = Carbon::now();
+        $current_time = $current_time->toDateTimeString();
+
+        $old_details = stockDetail::where('id',$id)->first(); 
+
+        if(!$old_details)
+        {
+            return redirect(route('purchased_stock'))->with(['errro'=>'details not found !']);
+        }      
+
+        $new_details = [
+            "admin_id" => Auth::user()->id,
+            "product_id" => $this->get_control_value('prid',$request),
+            "gmqty" =>  $this->get_control_value('gmqty',$request),
+            "unit" => $this->get_control_value('unit',$request),
+            "invoice_number" =>  $this->get_control_value('in_number',$request),
+            "vendor_name" => $this->get_control_value('name',$request),
+            "invoice_date" =>  $this->get_control_value('invoice_date',$request),
+            "date" => $current_time,
+        ];
+
+        if($new_details['product_id']==$old_details['product_id'])
+        {   
+            $stock = Stock::where('product_id',$old_details['product_id'])->first();   
+            $new_gmqty_in_stock = $stock['gmqty'] - $old_details['gmqty'] + $new_details['gmqty'];
+            $stock->gmqty = $new_gmqty_in_stock;
+            $stock->save();
+        }
+        else
+        {
+            $stock_old_product = Stock::where('product_id',$old_detials['product_id'])->first(); 
+            $stock_old_product->gmqty =  $stock_old_product->gmqty - $old_detials['gmqty'];
+            $stock_old_product->save();
+
+            $new_product_stock = Stock::where('product_id',$new_details['product_id'])->first();
+            if(!$new_product_stock) 
+            {
+                $data_for_stock = [
+                    "admin_id" => Auth::user()->id,
+                    "product_id" => $this->get_control_value('prid',$request),
+                    "gmqty" =>  $this->get_control_value('gmqty',$request),
+                    "unit" => $this->get_control_value('unit',$request),
+                    "base_qty" =>  $this->get_control_value('base_qty',$request),
+                    "date" => $current_time,
+        
+                ];
+                Stock::create($data_for_stock);
+            }
+            else
+            {
+                $new_product_stock->gmqty += $new_details['gmqty'];
+                $new_product_stock->save();
+            }
+            
+        }
+
+        stockDetail::updateOrCreate(['id' => $id], $new_details);     
+
+        return redirect(route('purchased_stock'))->with(['success'=>'Details updated successfully !']);
+    }
+
+    public function sale_report(Request $request)
+    {
+        $from_date = date("Y-m-d");
+        $to_date = date("Y-m-d");
+       
+        if($request->search)
+        {
+            $from_date = $request->from_date;
+            $to_date = $request->to_date;
+        }
+
+        $general_user_data = DB::table('orders')->whereBetween('orders.invice_date', [$from_date, $to_date])
+        ->join('user_billing_address', 'orders.id', '=', 'user_billing_address.order_id')
+        ->join('oredr_basic_details', 'orders.id', '=', 'oredr_basic_details.o_id')
+        ->select('user_billing_address.name','oredr_basic_details.sv_number','orders.id', 'orders.recipt_no','orders.discount','orders.totalprice','orders.invice_date','orders.order_remark')                                                                
+        ->orderByDesc('orders.invice_date')
+        ->where('orders.status',3)
+        ->get();     
+
+        $order_products=[];
+        foreach($general_user_data as $row)
+        {
+            $id = ($row->id );
+            $order_products[$row->recipt_no] = DB::table('order_item')->where('order_id',$id)
+            ->join('products','order_item.product_id','=','products.id')
+            ->select('order_item.*','products.title')
+            ->get();
+        }   
+
+        $register_user_data = DB::table('register_user_order')->whereBetween('register_user_order.invice_date', [$from_date, $to_date])
+        ->join('register_billing_address', 'register_user_order.id', '=', 'register_billing_address.order_id')
+        ->join('register_other_basic_details', 'register_user_order.id', '=', 'register_other_basic_details.o_id')
+        ->select('register_billing_address.name','register_other_basic_details.sv_number','register_user_order.id', 'register_user_order.recipt_no','register_user_order.discount','register_user_order.totalprice','register_user_order.invice_date','register_user_order.order_remark')                                                                
+        ->orderByDesc('register_user_order.invice_date')
+        ->where('register_user_order.status',3)
+        ->get();     
+
+        $register_order_products=[];
+        foreach($register_user_data as $row)
+        {
+            $id = ($row->id );
+            $register_order_products[$row->recipt_no] = DB::table('register_user_order_item')->where('order_id',$id)
+            ->join('products','register_user_order_item.product_id','=','products.id')
+            ->select('register_user_order_item.*','products.title')
+            ->get();
+        }   
+
+        $loggedInUserId = Auth::user()->id;
+        $products = Product::where('admin_id', $loggedInUserId)
+        ->where('status','1')->get();
+
+        $merged_data = $general_user_data->concat($register_user_data);
+        $merged_data = $merged_data->sortBy('invice_date');
+        $merged_order_products = array_merge($order_products,$register_order_products);
+
+        return view('sale_report', ['from_date'=>$from_date,'to_date'=>$to_date, 'products' => $products , 'merged_data'=>$merged_data, 'merged_order_products'=>$merged_order_products ]);
+    }
+
+    public function report_export(Request $request)
+    {
+        $from_date = $request->from_date;
+        $to_date = $request->to_date;
+        ob_end_clean(); 
+        ob_start();
+        return Excel::download(new ReportExport($from_date,$to_date), 'report-'.$from_date.'-'.$to_date.'.xls' );
+    }
+
+    public function general_report()
+    {
+        $sale_today = 0;
+        $today = now()->format('Y-m-d'); 
+
+        $orders = Order::where('invice_date', $today)
+        ->select('totalprice', 'discount')
+        ->get();
+        foreach ($orders as $order) {
+            $sale_today += $order->totalprice - $order->discount;
+        }
+        $register_user_order = RegisterUserOrder::where('invice_date', $today)
+        ->select('totalprice', 'discount')
+        ->get();
+        foreach ($register_user_order as $order) {
+            $sale_today += $order->totalprice - $order->discount;
+        }
+
+
+        $sale_this_month = 0;
+        $month_start_date =  now()->startOfMonth()->format('Y-m-d'); 
+
+        $orders_this_month = Order::whereBetween('invice_date', [$month_start_date, $today])
+        ->select('totalprice', 'discount')
+        ->where('status',3)
+        ->get();
+        foreach ($orders_this_month as $order) {
+            $sale_this_month += $order->totalprice - $order->discount;
+        }
+        $register_user_month_orders = RegisterUserOrder::whereBetween('invice_date', [$month_start_date, $today])
+        ->select('totalprice', 'discount')
+        ->where('status',3)
+        ->get();
+        foreach ($register_user_month_orders as $order) {
+            $sale_this_month += $order->totalprice - $order->discount;
+        }
+
+
+        $sale_till_date = 0;
+        $orders_this_month = Order::select('totalprice', 'discount')
+        ->where('status',3)
+        ->get();
+        foreach ($orders_this_month as $order) {
+            $sale_till_date += $order->totalprice - $order->discount;
+        }
+        $register_user_month_orders = RegisterUserOrder::select('totalprice', 'discount')
+        ->where('status',3)
+        ->get();
+        foreach ($register_user_month_orders as $order) {
+            $sale_till_date += $order->totalprice - $order->discount;
+        }
+
+        $from_date = date("Y-m-d");
+        $to_date = date("Y-m-d");
+
+        return view('general_report',['sale_today'=>$sale_today,'sale_this_month'=>$sale_this_month,'sale_till_date'=>$sale_till_date]);
     }
   
 }

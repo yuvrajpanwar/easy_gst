@@ -1,7 +1,11 @@
-<div style='background-color:red;text-align:center;'> <br /><br />This license is going to expire on
-    <strong>2023-09-30</strong>, Please contact service provider to continue using the software.
-</div>
 
+@if (warning()) 
+
+    <div style='background-color:red;text-align:center;color:white;'> <br /><br />This license is going to expire on
+        <strong>2023-09-30</strong>, Please contact service provider to continue using the software.
+    </div>
+
+@endif
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,6 +40,19 @@
     </main>
 
     <script src="{{asset('public/js/jquery-2.2.3.min.js')}}"></script>
+
+    <script src="{{asset('public/themes/admin/js/jquery-1.10.2.js')}}"></script>
+    <script src="{{asset('public/themes/admin/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('public/themes/admin/js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
+    <script src="{{asset('public/themes/admin/js/865ee126eb.js')}}"></script>    
+    <script src="{{asset('public/themes/admin/js/plugins/dataTables/jquery.dataTables.js')}}"></script>
+    <script src="{{asset('public/themes/admin/js/plugins/dataTables/dataTables.bootstrap.js')}}"></script>  
+    <script src="{{asset('public/themes/admin/js/sb-admin.js')}}"></script>
+    <script src="{{asset('public/plugins//tinymce/tinymce.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('public/plugins/uploadify/jquery.uploadify.min.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('public/i-js/jquery-ui.js') }}"></script>
+    
+
     @stack('js')
 
 </body>
